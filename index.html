@@ -3,13 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfolio</title>
+    <meta name="description" content="Portfolio de [Teu Nome] - Desenvolvedor Web">
+    <title>[Teu Nome] - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Hello World! 🚀</h1>
-    <p>O meu portfolio está a nascer...</p>
-    
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <h1>Fernando Albuquerque</h1>
+            <ul>
+                <li><a href="#about">Sobre Mim</a></li>
+                <li><a href="#projects">Projetos</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO / INTRO -->
+    <section class="hero">
+        <h2>Olá! Sou o Fernando Albuquerque 👋</h2>
+        <p>Desenvolvedor Web | Estudante | Criativo</p>
+    </section>
+
+    <!-- SOBRE MIM -->
+    <section id="about" class="about">
+        <h2>Sobre Mim</h2>
+        <p>Escreve uma breve descrição sobre ti...</p>
+        <!-- Aqui vão adicionar componentes interativos na próxima aula -->
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projects" class="projects">
+        <h2>Projetos</h2>
+        <div class="projects-grid">
+            <!-- Cards de projetos vão aqui (dinâmicos mais tarde) -->
+            <article class="project-card">
+                <h3>Projeto 1</h3>
+                <p>Descrição breve...</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contact" class="contact">
+        <h2>Contacto</h2>
+        <p>Em breve terás um formulário aqui!</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© <span id="year"></span> [Teu Nome]. Feito com ❤️ e ☕</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
