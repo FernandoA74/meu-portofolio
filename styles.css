@@ -244,3 +244,43 @@ body.dark-mode .icon-light {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
 }
+.visit-counter {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.visit-counter p {
+    margin: 0.5rem 0;
+    font-size: 1.1em;
+}
+
+.visit-counter strong {
+    color: var(--accent);
+    font-size: 1.5em;
+}
+
+.last-visit {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.reset-btn {
+    margin-top: 1rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
