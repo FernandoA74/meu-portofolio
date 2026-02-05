@@ -5,14 +5,7 @@
     box-sizing: border-box;
 }
 
-:root {
-    /* Exemplo de paleta customizada */
-    --primary: #ff6b6b;      /* Vermelho coral */
-    --secondary: #4ecdc4;    /* Turquesa */
-    --accent: #ffe66d;       /* Amarelo */
-    --dark: #2d3436;
-    --light: #f8f9fa;
-}
+
 
 /* ===== BASE STYLES ===== */
 body {
@@ -108,10 +101,11 @@ section h2 {
 
 /* ===== FOOTER ===== */
 footer {
-    background: var(--dark);
-    color: var(--white);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     text-align: center;
     padding: 2rem var(--spacing);
+    border-top: 1px solid var(--border);
 }
 
 /* ===== RESPONSIVE - TABLET ===== */
@@ -132,25 +126,36 @@ footer {
     }
 } 
 
-/* ===== TEMA CLARO (padrão) ===== */
+/* ===== TEMA CLARO ===== */
 :root {
+
+    /* ===== cores principais ===== */
+    --primary: #12ebbc;
+    --secondary: #3379bb;
+    --accent: #f8f417;
+
+    /* ===== tema ===== */
     --bg-primary: #ffffff;
-    --bg-secondary: #f3f4f6;
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --accent: #6366f1;
+    --bg-secondary: #d9dee7a2;
+    --text-primary: #000000;
+    --text-secondary: #7c8391;
     --border: #e5e7eb;
 }
 
 /* ===== TEMA ESCURO ===== */
 body.dark-mode {
+
+    --primary: #910596;
+    --secondary: #a93fff;
+    --accent: #f817ed;
+
     --bg-primary: #1f2937;
-    --bg-secondary: #111827;
+    --bg-secondary: #5051527a;
     --text-primary: #f9fafb;
     --text-secondary: #d1d5db;
-    --accent: #818cf8;
     --border: #374151;
 }
+
 
 /* ===== APLICAR VARIÁVEIS ===== */
 body {
