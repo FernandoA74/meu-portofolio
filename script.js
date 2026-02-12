@@ -252,7 +252,7 @@ const projects = [
         title: 'E-commerce Website',
         category: 'web',
         description: 'Loja online completa com carrinho de compras',
-        image: 'https://via.placeholder.com/400x300/6366f1/ffffff?text=E-commerce',
+        image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=500&h=300&fit=crop',
         tags: ['HTML', 'CSS', 'JavaScript', 'API'],
         link: 'https://github.com/...',
         longDescription: 'Website de e-commerce completo com sistema de carrinho, checkout, e integração com API de pagamentos. Interface moderna e responsiva.',
@@ -265,7 +265,7 @@ const projects = [
         title: 'App de Tarefas',
         category: 'web',
         description: 'Gestor de tarefas com filtros e categorias',
-        image: 'https://via.placeholder.com/400x300/8b5cf6/ffffff?text=Todo+App',
+        image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=300&fit=crop',
         tags: ['React', 'CSS', 'LocalStorage'],
         link: 'https://github.com/...',
         longDescription: 'Aplicação de gestão de tarefas com sistema de prioridades, categorias e persistência local.',
@@ -278,7 +278,7 @@ const projects = [
         title: 'Portfolio Designer',
         category: 'design',
         description: 'Portfolio criativo para designer gráfico',
-        image: 'https://via.placeholder.com/400x300/10b981/ffffff?text=Portfolio',
+        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop',
         tags: ['Figma', 'UI/UX', 'Protótipo'],
         link: 'https://figma.com/...',
         longDescription: 'Design de portfolio minimalista e elegante para apresentar trabalhos criativos.',
@@ -291,7 +291,7 @@ const projects = [
         title: 'App Meteorologia',
         category: 'mobile',
         description: 'App mobile para consultar previsão do tempo',
-        image: 'https://via.placeholder.com/400x300/f59e0b/ffffff?text=Weather+App',
+        image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=500&h=300&fit=crop',
         tags: ['React Native', 'API', 'Mobile'],
         link: 'https://github.com/...',
         longDescription: 'Aplicação mobile para consultar previsão meteorológica com dados em tempo real.',
@@ -304,7 +304,7 @@ const projects = [
         title: 'Dashboard Analytics',
         category: 'web',
         description: 'Dashboard com gráficos e estatísticas',
-        image: 'https://via.placeholder.com/400x300/ef4444/ffffff?text=Dashboard',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop',
         tags: ['Vue.js', 'Charts', 'API'],
         link: 'https://github.com/...',
         longDescription: 'Dashboard interativo para visualização de dados e analytics com gráficos dinâmicos.',
@@ -317,7 +317,7 @@ const projects = [
         title: 'Redesign Logo Empresa',
         category: 'design',
         description: 'Redesign de identidade visual corporativa',
-        image: 'https://via.placeholder.com/400x300/ec4899/ffffff?text=Logo+Design',
+        image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&h=300&fit=crop',
         tags: ['Illustrator', 'Branding', 'Logo'],
         link: 'https://behance.net/...',
         longDescription: 'Projeto de redesign completo de identidade visual incluindo logo, cores e tipografia.',
@@ -580,3 +580,118 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalListeners();  // ADICIONAR ESTA LINHA
     console.log('✅ Modal configurado!');
 });
+
+// ===== SISTEMA DE PESQUISA =====
+
+function searchProjects(query) {
+    // Converter query para lowercase
+    const searchTerm = query.toLowerCase().trim();
+    
+    // Se pesquisa vazia, mostrar todos (respeitando filtro categoria)
+    if (searchTerm === '') {
+        filterProjects(currentCategory);
+        return;
+    }
+    
+    // Começar com projetos da categoria atual
+    let baseProjects = currentCategory === 'all' 
+        ? projects 
+        : projects.filter(p => p.category === currentCategory);
+    
+    // Filtrar por termo de pesquisa
+    const results = baseProjects.filter(project => {
+        // Procurar em múltiplos campos
+        const titleMatch = project.title.toLowerCase().includes(searchTerm);
+        const descMatch = project.description.toLowerCase().includes(searchTerm);
+        const tagsMatch = project.tags.some(tag => 
+            tag.toLowerCase().includes(searchTerm)
+        );
+        
+        return titleMatch || descMatch || tagsMatch;
+    });
+    
+    // Renderizar resultados
+    renderProjects(results);
+    
+    console.log(`Pesquisa: "${query}" - ${results.length} resultados`);
+}
+
+// ===== EVENT LISTENER PARA PESQUISA =====
+
+function setupSearchListener() {
+    const searchInput = document.getElementById('search-input');
+    
+    // Event 'input' dispara a cada tecla pressionada
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value;
+        searchProjects(query);
+    });
+    
+    // Limpar pesquisa com Escape
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchInput.value = '';
+            searchProjects('');
+            searchInput.blur();
+        }
+    });
+}
+
+// Adicionar ao DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    renderProjects(projects);
+    setupFilterListeners();
+    setupModalListeners();
+    setupSearchListener();  // ADICIONAR ESTA LINHA
+    console.log('✅ Pesquisa configurada!');
+});
+// ===== DEBOUNCE PARA PESQUISA =====
+
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Criar versão debounced da pesquisa
+const debouncedSearch = debounce(searchProjects, 300);
+
+function setupSearchListener() {
+    const searchInput = document.getElementById('search-input');
+    
+    // Usar versão debounced
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value;
+        debouncedSearch(query);
+    });
+    
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchInput.value = '';
+            searchProjects('');
+            searchInput.blur();
+        }
+    });
+}
+
+// Quando mudar filtro, limpar pesquisa
+function filterProjects(category) {
+    currentCategory = category;
+    
+    // Limpar input de pesquisa
+    const searchInput = document.getElementById('search-input');
+    searchInput.value = '';
+    
+    let filteredProjects;
+    
+    if (category === 'all') {
+        filteredProjects = projects;
+    } else {
+        filteredProjects = projects.filter(project => project.category === category);
+    }
+    
+    renderProjects(filteredProjects);
+    console.log(`Filtro aplicado: ${category} (${filteredProjects.length} projetos)`);
+}
