@@ -1,3 +1,7 @@
+h1 {
+    font-size: 2.5rem;
+    color: #000000;
+}
 /* ===== RESET & VARIABLES ===== */
 * {
     margin: 0;
@@ -145,13 +149,13 @@ footer {
 /* ===== TEMA ESCURO ===== */
 body.dark-mode {
 
-    --primary: #910596;
-    --secondary: #a93fff;
-    --accent: #f817ed;
+    --primary: #f70fff;
+    --secondary: #a408b3;
+    --accent: #5e125a;
 
     --bg-primary: #1f2937;
     --bg-secondary: #5051527a;
-    --text-primary: #979797;
+    --text-primary: #000000;
     --text-secondary: #d1d5db;
     --border: #374151;
 }

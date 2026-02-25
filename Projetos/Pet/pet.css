@@ -1,0 +1,1303 @@
+/**
+ * TaskQuest - Gamified Productivity App with Tamagotchi Pet
+ * CSS Stylesheet with Educational Comments
+ * 
+ * @description Complete styling for a gamified task management application
+ * @author TaskQuest Development Team
+ * @version 2.0.0
+ * @license MIT
+ * 
+ * TABLE OF CONTENTS:
+ * 1. Reset & Base Styles
+ * 2. Layout Components
+ * 3. Pet System
+ * 4. Player Stats & Progression
+ * 5. Achievements
+ * 6. Task Management
+ * 7. Visual Effects & Animations
+ * 8. Responsive Design
+ */
+
+/* ==========================================
+   1. RESET & BASE STYLES
+   ========================================== */
+
+/**
+ * Universal Box Model Reset
+ * Ensures consistent sizing across all browsers by including padding 
+ * and borders in element dimensions
+ */
+* {
+    margin: 0;           /* Remove default browser margins */
+    padding: 0;          /* Remove default browser padding */
+    box-sizing: border-box;  /* Include padding/border in width/height calculations */
+}
+
+/**
+ * Body Element - Main Container
+ * Sets up the overall page appearance and layout foundation
+ */
+body {
+    /* Typography */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Background Gradient
+     * linear-gradient creates smooth color transition
+     * 135deg = diagonal from top-left to bottom-right
+     * Color stops: purple (#667eea) to pink (#764ba2)
+     */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
+    /* Layout */
+    min-height: 100vh;   /* Minimum height = 100% of viewport height */
+    padding: 20px;       /* Inner spacing around all content */
+}
+
+/* ==========================================
+   2. LAYOUT COMPONENTS
+   ========================================== */
+
+/**
+ * Main Container
+ * Centers content and limits maximum width for readability
+ * Best practice: Content shouldn't exceed 900-1200px for optimal reading
+ */
+.container {
+    max-width: 900px;    /* Maximum width constraint */
+    margin: 0 auto;      /* Center horizontally (0 top/bottom, auto left/right) */
+}
+
+/**
+ * Header Section
+ * Contains app title and tagline
+ */
+header {
+    text-align: center;  /* Center all text content */
+    color: white;        /* White text on gradient background */
+    margin-bottom: 30px; /* Space below header */
+}
+
+/**
+ * Main Heading (H1)
+ * Large, prominent title with shadow for depth
+ */
+header h1 {
+    font-size: 2.5em;    /* 2.5x the base font size (usually 16px = 40px) */
+    margin-bottom: 10px;
+    
+    /* Text Shadow for 3D Effect
+     * Syntax: x-offset y-offset blur-radius color
+     * Creates depth by adding shadow behind text
+     */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ==========================================
+   3. PET SYSTEM - Tamagotchi-Style Pet Display
+   ========================================== */
+
+/**
+ * Pet Container Card
+ * White card that houses the interactive pet display
+ * Uses modern card design pattern with shadow for elevation
+ */
+.pet-container {
+    background: white;
+    border-radius: 20px;  /* Rounded corners (larger = more rounded) */
+    padding: 30px;
+    margin-bottom: 20px;
+    
+    /* Box Shadow creates "floating" effect
+     * Syntax: x y blur spread color
+     * 0 10px 30px = shadow 10px down, 30px blur
+     */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    
+    text-align: center;
+    position: relative;   /* Enables absolute positioning of children */
+    overflow: hidden;     /* Clips content that extends beyond boundaries */
+}
+
+/**
+ * Pet Stage Banner
+ * Small badge showing current evolution stage (e.g., "Stage 2")
+ * Positioned absolutely in top-right corner
+ */
+.pet-stage-banner {
+    /* Positioning */
+    position: absolute;   /* Remove from normal flow, position relative to parent */
+    top: 10px;           /* 10px from top of container */
+    right: 10px;         /* 10px from right of container */
+    
+    /* Styling */
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;  /* Pill-shaped badge */
+    
+    /* Typography */
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;  /* "stage 1" → "STAGE 1" */
+}
+
+/**
+ * Pet Display - Main Interactive Element
+ * Shows the pet emoji with hover and animation effects
+ * Students: This is the central interactive element users click
+ */
+.pet-display {
+    font-size: 120px;     /* Very large for visual prominence */
+    margin: 20px 0;
+    
+    /* Animation
+     * animation: name duration timing-function iteration-count
+     * petIdle = keyframe name (defined below)
+     * 3s = 3 seconds per cycle
+     * ease-in-out = smooth acceleration/deceleration
+     * infinite = never stops
+     */
+    animation: petIdle 3s ease-in-out infinite;
+    
+    cursor: pointer;      /* Show hand cursor on hover (indicates clickable) */
+    transition: transform 0.3s;  /* Smooth 0.3s transition for transform changes */
+}
+
+/**
+ * Pet Hover Effect
+ * Enlarges pet slightly when mouse hovers over it
+ * Provides visual feedback that element is interactive
+ */
+.pet-display:hover {
+    transform: scale(1.1);  /* Scale to 110% of original size */
+}
+
+/**
+ * Idle Animation Keyframes
+ * Creates gentle floating/bobbing motion when pet is idle
+ * 
+ * @keyframes defines the animation sequence
+ * Percentages represent points in the animation timeline
+ */
+@keyframes petIdle {
+    /* Start and end at same position (creates loop) */
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+    }
+    
+    /* At 25% through animation */
+    25% { 
+        transform: translateY(-10px) rotate(-5deg);  /* Move up 10px, tilt left 5° */
+    }
+    
+    /* At 75% through animation */
+    75% { 
+        transform: translateY(-5px) rotate(5deg);    /* Move up 5px, tilt right 5° */
+    }
+}
+
+/**
+ * Happy Animation Class
+ * Applied via JavaScript when user pets the pet
+ * Creates excited jumping motion
+ */
+.pet-display.happy {
+    animation: petJump 0.6s ease-in-out;
+}
+
+/**
+ * Jump Animation Keyframes
+ * Creates bouncing effect when pet is happy
+ */
+@keyframes petJump {
+    0%, 100% { 
+        transform: translateY(0) scale(1);      /* Normal position and size */
+    }
+    50% { 
+        transform: translateY(-30px) scale(1.2); /* Jump up 30px, grow 20% */
+    }
+}
+
+/**
+ * Evolution Animation Class
+ * Applied during pet evolution (level milestones)
+ * Creates dramatic spinning transformation effect
+ */
+.pet-display.evolving {
+    animation: petEvolve 1s ease-in-out;
+}
+
+/**
+ * Evolution Animation Keyframes
+ * Complex transformation with rotation and opacity changes
+ * Simulates magical transformation effect
+ */
+@keyframes petEvolve {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 1;           /* Fully visible */
+    }
+    25% { 
+        transform: scale(1.3) rotate(180deg); 
+        opacity: 0.5;         /* Semi-transparent */
+    }
+    50% { 
+        transform: scale(0.5) rotate(360deg); 
+        opacity: 0.3;         /* More transparent */
+    }
+    75% { 
+        transform: scale(1.3) rotate(540deg); 
+        opacity: 0.5;
+    }
+}
+
+/**
+ * Pet Name Display
+ * Shows pet's name (e.g., "Baby Chick", "Mighty Eagle")
+ */
+.pet-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #667eea;       /* Brand purple color */
+    margin-bottom: 10px;
+}
+
+/**
+ * Pet Mood Display
+ * Shows current mood text based on stats
+ * (e.g., "So happy!", "Need food!", "Feeling great!")
+ */
+.pet-mood {
+    font-size: 16px;
+    color: #666;          /* Medium gray */
+    margin-bottom: 20px;
+}
+
+/**
+ * Pet Stats Grid
+ * Container for the three stat bars (Happiness, Energy, Hunger)
+ * Uses CSS Grid for equal-width columns
+ */
+.pet-stats-grid {
+    display: grid;        /* Enable CSS Grid layout */
+    grid-template-columns: repeat(3, 1fr);  /* 3 equal columns (1fr = 1 fraction) */
+    gap: 10px;           /* Space between grid items */
+    margin-top: 20px;
+}
+
+/**
+ * Individual Stat Display
+ * Container for one stat (label + progress bar)
+ */
+.pet-stat {
+    background: #f8f9fa;  /* Very light gray */
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/**
+ * Stat Label
+ * Shows stat name with emoji (💕 Happiness, ⚡ Energy, 🍔 Hunger)
+ */
+.pet-stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/**
+ * Stat Bar Container
+ * Outer container for progress bar (background track)
+ */
+.pet-stat-bar {
+    background: #e0e0e0;  /* Light gray background */
+    height: 8px;
+    border-radius: 4px;   /* Rounded ends */
+    overflow: hidden;     /* Clips the colored fill bar */
+}
+
+/**
+ * Stat Bar Fill
+ * Colored bar that grows/shrinks based on stat value
+ * Width controlled via JavaScript (0-100%)
+ */
+.pet-stat-fill {
+    height: 100%;         /* Fill full height of container */
+    transition: width 0.5s ease;  /* Smooth width changes over 0.5s */
+}
+
+/**
+ * Happiness Bar Color
+ * Red/pink gradient for happiness stat
+ */
+.pet-stat-fill.happiness {
+    background: linear-gradient(90deg, #ff6b6b, #ff8787);
+}
+
+/**
+ * Energy Bar Color
+ * Green gradient for energy stat
+ */
+.pet-stat-fill.energy {
+    background: linear-gradient(90deg, #51cf66, #94d82d);
+}
+
+/**
+ * Hunger Bar Color
+ * Yellow/orange gradient for hunger stat
+ * Note: Higher hunger = more full (inverse of typical)
+ */
+.pet-stat-fill.hunger {
+    background: linear-gradient(90deg, #ffd43b, #ffa94d);
+}
+
+/* ==========================================
+   4. PLAYER STATS & PROGRESSION SYSTEM
+   ========================================== */
+
+/**
+ * Player Stats Card
+ * White card containing level, XP bar, and streak information
+ */
+.player-stats {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/**
+ * Level Section
+ * Container for level badge and XP bar
+ * Uses Flexbox for horizontal layout
+ */
+.level-section {
+    display: flex;         /* Enable Flexbox layout */
+    align-items: center;   /* Vertically center items */
+    gap: 20px;            /* Space between flex items */
+    margin-bottom: 20px;
+}
+
+/**
+ * Level Badge
+ * Circular badge showing current level number
+ * Uses gradient background and pulsing animation
+ */
+.level-badge {
+    /* Styling */
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    
+    /* Sizing - Fixed dimensions for perfect circle */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;   /* 50% = perfect circle */
+    
+    /* Flexbox for centering content */
+    display: flex;
+    flex-direction: column;  /* Stack items vertically */
+    align-items: center;     /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+    
+    /* Pulsing Animation */
+    animation: pulse 2s infinite;
+}
+
+/**
+ * Pulse Animation
+ * Gentle breathing effect for level badge
+ * Creates subtle scale change to draw attention
+ */
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1);      /* Normal size */
+    }
+    50% { 
+        transform: scale(1.05);   /* Slightly larger (5% growth) */
+    }
+}
+
+/**
+ * Level Number Text
+ * Large number inside circular badge
+ */
+.level-badge .level-number {
+    font-size: 32px;
+}
+
+/**
+ * "Level" Label Text
+ * Small text below number in badge
+ */
+.level-badge .level-text {
+    font-size: 10px;
+    text-transform: uppercase;  /* "level" → "LEVEL" */
+}
+
+/**
+ * Level Info Container
+ * Contains level title and XP bar
+ * flex: 1 makes it grow to fill available space
+ */
+.level-info {
+    flex: 1;  /* Grow to fill remaining space in flex container */
+}
+
+/**
+ * Level Title
+ * Shows rank/title based on level (e.g., "Productivity Ninja")
+ */
+.level-title {
+    font-size: 24px;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+/**
+ * XP Bar Container
+ * Outer container for experience progress bar
+ * Similar to stat bars but larger
+ */
+.xp-bar-container {
+    background: #e0e0e0;
+    height: 25px;
+    border-radius: 15px;
+    overflow: hidden;     /* Clips the progress bar */
+    position: relative;   /* For absolutely positioned children */
+}
+
+/**
+ * XP Bar Fill
+ * Colored bar showing XP progress toward next level
+ * Width updated via JavaScript (0-100%)
+ */
+.xp-bar {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%;
+    
+    /* Smooth Transitions
+     * When JavaScript changes width, animate the change
+     */
+    transition: width 0.5s ease;
+    
+    /* Absolute Positioning
+     * Positioned behind the text overlay
+     */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/**
+ * XP Text Overlay
+ * Shows "50 / 150 XP" text centered on progress bar
+ * Uses advanced centering technique
+ */
+.xp-text {
+    position: absolute;
+    
+    /* Perfect Centering Technique
+     * Step 1: Move element 50% from top and left (of parent)
+     * Step 2: Translate back by 50% of own size
+     * Result: Perfectly centered regardless of size
+     */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    font-weight: bold;
+    font-size: 12px;
+    color: #2d3436;
+    z-index: 2;          /* Appear above colored bar */
+    
+    /* Text Shadow for Readability
+     * White glow ensures text readable on any background
+     */
+    text-shadow: 0 0 3px white;
+}
+
+/**
+ * Streak Section
+ * Container for streak cards (Day Streak, Completed, Total XP)
+ */
+.streak-section {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/**
+ * Streak Card
+ * Individual stat card with gradient background
+ * flex: 1 makes all cards equal width
+ */
+.streak-card {
+    flex: 1;  /* Equal distribution of space */
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/**
+ * Fire Streak Card Modifier
+ * Special red/orange gradient for day streak card
+ * .fire is modifier class (BEM methodology)
+ */
+.streak-card.fire {
+    background: linear-gradient(135deg, #ff9a76 0%, #ff6b6b 100%);
+}
+
+/**
+ * Streak Number
+ * Large number in streak card
+ */
+.streak-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2d3436;
+}
+
+/**
+ * Streak Label
+ * Descriptive text below number (e.g., "🔥 Day Streak")
+ */
+.streak-label {
+    font-size: 12px;
+    color: #2d3436;
+    text-transform: uppercase;
+}
+
+/* ==========================================
+   5. ACHIEVEMENTS SYSTEM
+   ========================================== */
+
+/**
+ * Achievements Container
+ * White card housing achievement grid
+ */
+.achievements {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/**
+ * Achievement Grid
+ * Responsive grid that auto-fills columns based on space
+ * 
+ * CSS Grid Advanced Pattern:
+ * - repeat() = repeat a pattern
+ * - auto-fill = create as many columns as will fit
+ * - minmax(100px, 1fr) = minimum 100px wide, maximum equal fraction
+ */
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/**
+ * Individual Achievement Card
+ * Can be in "unlocked" or "locked" state
+ * Base styles apply to both states
+ */
+.achievement {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    
+    /* Transition ALL properties smoothly
+     * Makes any style change animated (hover, unlock, etc.)
+     */
+    transition: all 0.3s;
+    
+    cursor: pointer;
+    position: relative;
+}
+
+/**
+ * Unlocked Achievement State
+ * Gold gradient and shadow for unlocked achievements
+ * State modifier class (applied via JavaScript)
+ */
+.achievement.unlocked {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
+    
+    /* Play bounce animation on unlock */
+    animation: unlockBounce 0.5s ease;
+}
+
+/**
+ * Unlock Bounce Animation
+ * Celebratory bounce when achievement is unlocked
+ * One-time animation (not infinite)
+ */
+@keyframes unlockBounce {
+    0%, 100% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.1);  /* Grow 10% in middle */
+    }
+}
+
+/**
+ * Locked Achievement State
+ * Grayed out and desaturated for locked achievements
+ */
+.achievement.locked {
+    opacity: 0.4;              /* Semi-transparent */
+    filter: grayscale(100%);   /* Remove all color (black & white) */
+}
+
+/**
+ * Achievement Icon
+ * Emoji icon for achievement
+ */
+.achievement-icon {
+    font-size: 40px;
+    margin-bottom: 5px;
+}
+
+/**
+ * Achievement Name
+ * Title of achievement (e.g., "First Steps", "Legend")
+ */
+.achievement-name {
+    font-size: 11px;
+    font-weight: bold;
+    color: #2d3436;
+}
+
+/**
+ * Achievement Description
+ * Requirement text (e.g., "Complete 5 tasks")
+ */
+.achievement-desc {
+    font-size: 9px;
+    color: #636e72;
+    margin-top: 3px;
+}
+
+/* ==========================================
+   6. TASK MANAGEMENT INTERFACE
+   ========================================== */
+
+/**
+ * App Card
+ * Main white card containing task input and list
+ * Largest shadow for maximum elevation
+ */
+.app-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);  /* Dramatic shadow */
+}
+
+/**
+ * Input Section
+ * Container for task input, priority select, and add button
+ * Horizontal layout using Flexbox
+ */
+.input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+/**
+ * Task Input Field
+ * Text input for new task entry
+ */
+#taskInput {
+    flex: 1;  /* Grow to fill available space */
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    
+    /* Smooth border and shadow transitions */
+    transition: all 0.3s;
+}
+
+/**
+ * Input Focus State
+ * Styling when user clicks into input field
+ * Provides clear visual feedback
+ */
+#taskInput:focus {
+    outline: none;           /* Remove default browser outline */
+    border-color: #667eea;   /* Change to brand purple */
+    
+    /* Glow Effect
+     * Creates subtle purple glow around input
+     * box-shadow: h-offset v-offset blur spread color
+     */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/**
+ * Button Base Styles
+ * Shared styles for all buttons
+ */
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/**
+ * Primary Button Variant
+ * Purple gradient button for main actions
+ */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/**
+ * Primary Button Hover State
+ * Lifts button up slightly on hover
+ * Creates illusion of pressing down when clicked
+ */
+.btn-primary:hover {
+    transform: translateY(-2px);  /* Move up 2px */
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/**
+ * Task List
+ * Unordered list container for tasks
+ */
+.task-list {
+    list-style: none;  /* Remove bullet points */
+}
+
+/**
+ * Task Item
+ * Individual task row with checkbox, text, and badges
+ */
+.task-item {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    
+    /* Flexbox Layout
+     * Arranges checkbox, text, badges horizontally
+     */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    
+    transition: all 0.3s;
+    
+    /* Slide-in Animation on Creation */
+    animation: slideIn 0.3s ease;
+    
+    position: relative;
+}
+
+/**
+ * Slide In Animation
+ * Tasks slide in from left when created
+ */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);  /* Start 20px to the left */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);      /* End at normal position */
+    }
+}
+
+/**
+ * Task Item Hover State
+ * Subtle slide to right on hover
+ * Indicates interactivity
+ */
+.task-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/**
+ * Completing Task Animation State
+ * Applied when task checkbox is checked
+ * Brief flash before removal
+ */
+.task-item.completing {
+    animation: taskComplete 0.5s ease;
+}
+
+/**
+ * Task Complete Animation
+ * Green flash effect on completion
+ */
+@keyframes taskComplete {
+    0% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.05);
+        background: #a8e6cf;  /* Light green flash */
+    }
+    100% { 
+        transform: scale(1); 
+    }
+}
+
+/**
+ * Task Checkbox
+ * Styled checkbox for marking tasks complete
+ */
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: #667eea;  /* Modern CSS property for checkbox color */
+}
+
+/**
+ * Task Text
+ * The actual task description
+ * flex: 1 makes it grow to fill space
+ */
+.task-text {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+}
+
+/**
+ * XP Badge
+ * Shows XP reward for completing task
+ * Gold gradient pill
+ */
+.xp-badge {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    color: #2d3436;
+    padding: 4px 10px;
+    border-radius: 12px;  /* Pill shape */
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/**
+ * Priority Badge
+ * Shows task priority (Low/Medium/High)
+ * Color varies by priority level
+ */
+.priority-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/**
+ * High Priority Badge
+ * Red background for high priority tasks
+ */
+.priority-high {
+    background: #fee;  /* Very light red */
+    color: #c33;       /* Dark red text */
+}
+
+/**
+ * Medium Priority Badge
+ * Yellow background for medium priority
+ */
+.priority-medium {
+    background: #ffeaa7;
+    color: #d63031;
+}
+
+/**
+ * Low Priority Badge
+ * Gray background for low priority
+ */
+.priority-low {
+    background: #dfe6e9;
+    color: #636e72;
+}
+
+/**
+ * Small Button Base
+ * Smaller button variant for inline actions
+ */
+.btn-small {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/**
+ * Delete Button Variant
+ * Red button for delete action
+ */
+.btn-delete {
+    background: #dc3545;  /* Bootstrap danger red */
+    color: white;
+}
+
+/**
+ * Small Button Hover
+ * Grows slightly on hover
+ */
+.btn-small:hover {
+    transform: scale(1.1);
+}
+
+/**
+ * Empty State Display
+ * Shown when no tasks exist
+ * Centered placeholder text
+ */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+}
+
+/**
+ * Stats Section
+ * Container for stat cards (Active Quests, Completed Today)
+ */
+.stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;  /* Wrap to new line on small screens */
+}
+
+/**
+ * Stat Card
+ * Individual card showing a statistic
+ */
+.stat-card {
+    flex: 1;
+    min-width: 150px;  /* Minimum width before wrapping */
+    padding: 15px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/**
+ * Stat Card Number
+ * Large number in stat card
+ */
+.stat-card h3 {
+    font-size: 24px;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+/* ==========================================
+   7. VISUAL EFFECTS & ANIMATIONS
+   ========================================== */
+
+/**
+ * Floating XP Text
+ * Animated text that floats up when earning XP
+ * Created dynamically via JavaScript
+ */
+.floating-xp {
+    position: absolute;  /* Positioned relative to task item */
+    font-weight: bold;
+    font-size: 20px;
+    color: #fdcb6e;     /* Gold color */
+    
+    /* Float Up Animation */
+    animation: floatUp 1s ease-out forwards;
+    
+    pointer-events: none;  /* Don't block clicks */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+/**
+ * Float Up Animation
+ * Makes XP text rise and fade out
+ */
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);  /* Move up 50px */
+    }
+}
+
+/**
+ * Heart Particle
+ * Floating hearts created when petting the pet
+ * Generated dynamically via JavaScript
+ */
+.heart-particle {
+    position: fixed;     /* Fixed to viewport */
+    font-size: 30px;
+    pointer-events: none;
+    animation: heartFloat 2s ease-out forwards;
+    z-index: 999;       /* Above most content */
+}
+
+/**
+ * Heart Float Animation
+ * Hearts float up and shrink as they fade
+ */
+@keyframes heartFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);  /* Float up, shrink to 50% */
+    }
+}
+
+/**
+ * Confetti Particle
+ * Colorful squares that fall during celebrations
+ * Created dynamically by JavaScript
+ */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: #f0a830;  /* Gold (overridden by JS with random colors) */
+    animation: confetti-fall 3s linear;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/**
+ * Confetti Fall Animation
+ * Confetti pieces fall and rotate
+ */
+@keyframes confetti-fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);  /* Fall to bottom, spin */
+        opacity: 0;
+    }
+}
+
+/**
+ * Celebration Overlay
+ * Full-screen dark overlay for popup celebrations
+ * Hidden by default (display: none)
+ */
+.celebration-overlay {
+    /* Fixed Full-Screen Positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Semi-Transparent Black Background */
+    background: rgba(0,0,0,0.8);  /* 80% opacity black */
+    
+    /* Flexbox for Centering Content */
+    display: none;           /* Hidden by default */
+    align-items: center;     /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    
+    z-index: 1000;          /* Above all other content */
+    animation: fadeIn 0.3s; /* Fade in when shown */
+}
+
+/**
+ * Fade In Animation
+ * Smooth opacity transition
+ */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/**
+ * Celebration Content Card
+ * White popup card in center of overlay
+ */
+.celebration-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    animation: scaleIn 0.5s ease;
+    max-width: 90%;  /* Don't exceed 90% of screen width */
+}
+
+/**
+ * Scale In Animation
+ * Popup grows from small to full size
+ * Creates dramatic entrance effect
+ */
+@keyframes scaleIn {
+    from { transform: scale(0.5); }  /* Start at 50% size */
+    to { transform: scale(1); }      /* End at full size */
+}
+
+/**
+ * Celebration Icon
+ * Large emoji at top of popup
+ */
+.celebration-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+/**
+ * Celebration Title
+ * Main heading in popup (e.g., "Level Up!")
+ */
+.celebration-title {
+    font-size: 32px;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+/**
+ * Sound Toggle Button
+ * Fixed position button to mute/unmute sounds
+ */
+.sound-toggle {
+    /* Fixed Positioning */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    
+    /* Circular Button */
+    background: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    
+    /* Centering Icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 100;
+    transition: all 0.3s;
+}
+
+/**
+ * Sound Toggle Hover
+ * Slight enlargement on hover
+ */
+.sound-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   8. RESPONSIVE DESIGN - Mobile Adaptations
+   ========================================== */
+
+/**
+ * Mobile Breakpoint
+ * Media query activates for screens 600px wide or smaller
+ * Adjusts layout for mobile devices
+ * 
+ * @media (max-width: 600px) = only apply styles if screen ≤ 600px
+ */
+@media (max-width: 600px) {
+    /**
+     * Smaller Pet on Mobile
+     * 80px instead of 120px to fit smaller screens
+     */
+    .pet-display {
+        font-size: 80px;
+    }
+    
+    /**
+     * Vertical Input Layout on Mobile
+     * Stack input, select, and button vertically
+     * Instead of horizontal row on desktop
+     */
+    .input-section {
+        flex-direction: column;  /* Change from row to column */
+    }
+    
+    /**
+     * Full-Width Priority Select on Mobile
+     */
+    #prioritySelect {
+        width: 100%;
+    }
+    
+    /**
+     * Vertical Level Section on Mobile
+     * Stack badge and info vertically
+     */
+    .level-section {
+        flex-direction: column;
+    }
+    
+    /**
+     * Vertical Streak Cards on Mobile
+     * Stack three cards vertically
+     */
+    .streak-section {
+        flex-direction: column;
+    }
+    
+    /**
+     * Smaller Achievement Grid on Mobile
+     * Reduce minimum column width from 100px to 80px
+     * Fits more columns on narrow screens
+     */
+    .achievement-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+}
+
+/**
+ * END OF STYLESHEET
+ * 
+ * Professional Tips for Students:
+ * 
+ * 1. Organization: Keep related styles grouped in sections
+ * 2. Naming: Use descriptive class names (BEM methodology)
+ * 3. Comments: Explain WHY, not just WHAT
+ * 4. Consistency: Use consistent spacing, naming, and patterns
+ * 5. Mobile-First: Consider mobile from the start, not as afterthought
+ * 6. Performance: Avoid excessive animations, optimize selectors
+ * 7. Accessibility: Ensure sufficient color contrast, readable fonts
+ * 8. Browser Support: Test in multiple browsers, use prefixes if needed
+ * 
+ * Further Reading:
+ * - CSS Grid: https://css-tricks.com/snippets/css/complete-guide-grid/
+ * - Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ * - Animations: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations
+ * - Responsive Design: https://web.dev/responsive-web-design-basics/
+ */

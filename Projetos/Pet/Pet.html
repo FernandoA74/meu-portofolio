@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="stylesheet" href="pet.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskQuest - Your Productivity Pet</title>
+ 
+</head>
+<body>
+    <!-- Sound Toggle -->
+    <div class="sound-toggle" onclick="toggleSound()" id="soundToggle">🔊</div>
+
+    <!-- Celebration Overlay -->
+    <div class="celebration-overlay" id="celebrationOverlay">
+        <div class="celebration-content">
+            <div class="celebration-icon" id="celebrationIcon">🎉</div>
+            <h2 class="celebration-title" id="celebrationTitle">Level Up!</h2>
+            <p id="celebrationText">You reached level 2!</p>
+            <button class="btn btn-primary" onclick="closeCelebration()" style="margin-top: 20px;">Awesome!</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🎮 Tasking Pet</h1>
+            <p>Grow your productivity pet!</p>
+        </header>
+
+        <!-- Pet Display -->
+        <div class="pet-container">
+            <div class="pet-stage-banner" id="petStageBanner">Egg</div>
+            <div class="pet-display" id="petDisplay" onclick="petPet()">🥚</div>
+            <div class="pet-name" id="petName">Your Pet</div>
+            <div class="pet-mood" id="petMood">Waiting to hatch...</div>
+            
+            <div class="pet-stats-grid">
+                <div class="pet-stat">
+                    <div class="pet-stat-label">💕 Happiness</div>
+                    <div class="pet-stat-bar">
+                        <div class="pet-stat-fill happiness" id="happinessBar" style="width: 50%"></div>
+                    </div>
+                </div>
+                <div class="pet-stat">
+                    <div class="pet-stat-label">⚡ Energy</div>
+                    <div class="pet-stat-bar">
+                        <div class="pet-stat-fill energy" id="energyBar" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="pet-stat">
+                    <div class="pet-stat-label">🍔 Hunger</div>
+                    <div class="pet-stat-bar">
+                        <div class="pet-stat-fill hunger" id="hungerBar" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Player Stats -->
+        <div class="player-stats">
+            <div class="level-section">
+                <div class="level-badge">
+                    <div class="level-number" id="playerLevel">1</div>
+                    <div class="level-text">Level</div>
+                </div>
+                <div class="level-info">
+                    <div class="level-title" id="levelTitle">Newbie Achiever</div>
+                    <div class="xp-bar-container">
+                        <div class="xp-bar" id="xpBar" style="width: 0%;"></div>
+                        <span class="xp-text" id="xpText">0 / 100 XP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="streak-section">
+                <div class="streak-card fire">
+                    <div class="streak-number" id="streakDays">0</div>
+                    <div class="streak-label">🔥 Day Streak</div>
+                </div>
+                <div class="streak-card">
+                    <div class="streak-number" id="totalCompleted">0</div>
+                    <div class="streak-label">✅ Completed</div>
+                </div>
+                <div class="streak-card">
+                    <div class="streak-number" id="totalXP">0</div>
+                    <div class="streak-label">⭐ Total XP</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="achievements">
+            <h3>🏆 Achievements</h3>
+            <div class="achievement-grid" id="achievementGrid"></div>
+        </div>
+
+        <!-- Tasks -->
+        <div class="app-card">
+            <div class="input-section">
+                <input 
+                    type="text" 
+                    id="taskInput" 
+                    placeholder="Add a new quest..."
+                    onkeypress="if(event.key==='Enter') addTask()"
+                >
+                <select id="prioritySelect" style="padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px;">
+                    <option value="low">Low (10 XP)</option>
+                    <option value="medium" selected>Medium (25 XP)</option>
+                    <option value="high">High (50 XP)</option>
+                </select>
+                <button class="btn btn-primary" onclick="addTask()">Add Quest</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="totalTasks">0</h3>
+                    <p>Active Quests</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="todayCompleted">0</h3>
+                    <p>Completed Today</p>
+                </div>
+            </div>
+
+            <ul class="task-list" id="taskList"></ul>
+
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <h3>No active quests</h3>
+                <p>Add your first quest to start earning XP! 🎯</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="pet.js"></script>
+</body>
+</html>
