@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSearchListener(); 
     setupFormValidation();
     setupCharCounter();
+    setupFormSubmit();
+    setupAdminToggle();
+    loadMessages();
 });
 
 // ===== RELÓGIO DIGITAL =====
@@ -953,12 +956,181 @@ function setupFormSubmit() {
             submitBtn.classList.remove('loading');
         }
     });
+
+}// ===== GUARDAR MENSAGENS =====
+function saveMessage(formData) {
+    // Obter mensagens existentes
+    const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+    
+    // Criar nova mensagem
+    const message = {
+        id: Date.now(),
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        date: new Date().toISOString(),
+        read: false
+    };
+    
+    // Adicionar ao array
+    messages.unshift(message); // unshift adiciona ao início
+    
+    // Guardar de volta
+    localStorage.setItem('contactMessages', JSON.stringify(messages));
+    
+    console.log('💾 Mensagem guardada:', message);
+    return message;
 }
 
-// Adicionar ao DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    setupFormValidation();
-    setupCharCounter();
-    setupFormSubmit();
-    console.log('✅ Form submit configurado');
+// Atualizar função de submit
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+        showToast('error', 'Erro!', 'Por favor, corrige os erros');
+        return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    
+    try {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // ADICIONAR: Guardar mensagem
+        const formData = new FormData(form);
+        saveMessage(formData);
+        
+        showToast(
+            'success',
+            'Mensagem Enviada!',
+            'Obrigado pelo contacto. Respondo em breve!'
+        );
+        
+        form.reset();
+        // ... resto do código
+        
+    } catch (error) {
+        showToast('error', 'Erro ao Enviar', 'Tenta novamente.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+    }
 });
+// ===== ADMIN VIEW =====
+
+function loadMessages() {
+    const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+    const messagesList = document.getElementById('messages-list');
+    const noMessages = document.getElementById('no-messages');
+    const totalMessages = document.getElementById('total-messages');
+    const unreadBadge = document.getElementById('unread-badge');
+    
+    // Atualizar contador
+    totalMessages.textContent = messages.length;
+    
+    // Contar não lidas
+    const unreadCount = messages.filter(m => !m.read).length;
+    if (unreadCount > 0) {
+        unreadBadge.textContent = unreadCount;
+        unreadBadge.style.display = 'flex';
+    } else {
+        unreadBadge.style.display = 'none';
+    }
+    
+    // Mostrar/esconder mensagens
+    if (messages.length === 0) {
+        messagesList.style.display = 'none';
+        noMessages.style.display = 'block';
+        return;
+    }
+    
+    messagesList.style.display = 'flex';
+    noMessages.style.display = 'none';
+    
+    // Renderizar mensagens
+    messagesList.innerHTML = messages.map(msg => `
+        
+
+            
+
+                
+
+                    
+${msg.name}
+
+                    
+${msg.email}
+
+
+                
+
+                
+
+                    
+${new Date(msg.date).toLocaleDateString('pt-PT')}
+
+                    
+${new Date(msg.date).toLocaleTimeString('pt-PT')}
+
+                
+
+            
+
+            ${msg.subject}
+            
+${msg.message}
+
+            
+
+                
+                    🗑️ Eliminar
+                
+            
+
+        
+
+    `).join('');
+}
+
+function deleteMessage(id) {
+    if (!confirm('Eliminar esta mensagem?')) return;
+    
+    let messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+    messages = messages.filter(m => m.id !== id);
+    localStorage.setItem('contactMessages', JSON.stringify(messages));
+    
+    loadMessages();
+    showToast('success', 'Eliminada!', 'Mensagem removida com sucesso');
+}
+
+function clearAllMessages() {
+    if (!confirm('Eliminar TODAS as mensagens? Esta ação é irreversível!')) return;
+    
+    localStorage.removeItem('contactMessages');
+    loadMessages();
+    showToast('success', 'Limpo!', 'Todas as mensagens foram removidas');
+}
+
+// Toggle admin view
+function setupAdminToggle() {
+    const toggleBtn = document.getElementById('toggle-admin');
+    const adminSection = document.getElementById('admin-messages');
+    let isVisible = false;
+    
+    toggleBtn.addEventListener('click', () => {
+        isVisible = !isVisible;
+        adminSection.style.display = isVisible ? 'block' : 'none';
+        
+        if (isVisible) {
+            loadMessages();
+            // Scroll para admin
+            adminSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
+
+// Limpar todas
+document.getElementById('clear-messages')?.addEventListener('click', clearAllMessages);
