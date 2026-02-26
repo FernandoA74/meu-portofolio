@@ -765,8 +765,8 @@ function showFieldFeedback(fieldName, isValid, message = '') {
         errorElement.textContent = message;
     }
 }
-// ===== EVENT LISTENERS =====
 
+// ===== EVENT LISTENERS =====
 function setupFormValidation() {
     const form = document.getElementById('contact-form');
     const fields = ['name', 'email', 'phone', 'subject', 'message'];
@@ -846,3 +846,119 @@ function setupCharCounter() {
         }
     });
 }
+// ===== TOAST NOTIFICATIONS =====
+
+function showToast(type, title, message, duration = 3000) {
+    const container = document.getElementById('toast-container');
+    
+    // Ícones por tipo
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+    };
+    
+    // Criar toast
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        
+${icons[type]}
+
+        
+
+            
+${title}
+
+            
+${message}
+
+        
+
+        ×
+    `;
+    
+    // Adicionar ao container
+    container.appendChild(toast);
+    
+    // Close button
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        toast.style.animation = 'fadeOut 0.4s ease forwards';
+        setTimeout(() => toast.remove(), 400);
+    });
+    
+    // Auto-remove após duration
+    setTimeout(() => {
+        if (toast.parentElement) {
+            toast.style.animation = 'fadeOut 0.4s ease forwards';
+            setTimeout(() => toast.remove(), 400);
+        }
+    }, duration);
+    
+    console.log(`Toast ${type}: ${title}`);
+}
+// ===== PROCESSAR SUBMIT =====
+
+function setupFormSubmit() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Validar form final
+        if (!validateForm(isFormValid = true)) {
+            showToast('error', 'Erro!', 'Por favor, corrige os erros no formulário');
+            return;
+        }
+        
+        // Desativar botão e mostrar loading
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading');
+        
+        // Simular envio (depois vamos guardar em localStorage)
+        try {
+            // Simular delay de rede
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Sucesso!
+            showToast(
+                'success',
+                'Mensagem Enviada!',
+                'Obrigado pelo contacto. Respondo em breve!'
+            );
+            
+            // Limpar formulário
+            form.reset();
+            
+            // Remover estados de validação
+            document.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('valid', 'invalid');
+            });
+            
+            // Resetar contador
+            document.getElementById('char-count').textContent = '0';
+            
+        } catch (error) {
+            showToast(
+                'error',
+                'Erro ao Enviar',
+                'Ocorreu um erro. Tenta novamente.'
+            );
+        } finally {
+            // Reativar botão e remover loading
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
+        }
+    });
+}
+
+// Adicionar ao DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    setupFormValidation();
+    setupCharCounter();
+    setupFormSubmit();
+    console.log('✅ Form submit configurado');
+});
