@@ -100,8 +100,124 @@
 
     <!-- CONTACTO -->
     <section id="contact" class="contact">
-        <h2>Contacto</h2>
-        <p>Em breve terás um formulário aqui!</p>
+    <div class="section-header">
+        <h2>📧 Entra em Contacto</h2>
+        <p>Tens alguma questão ou projeto em mente? Envia-me uma mensagem!</p>
+    </div>
+
+    <div class="contact-container">
+        <!-- Formulário -->
+        <form id="contact-form" class="contact-form" novalidate>
+            
+            <!-- Nome -->
+            <div class="form-group">
+                <label for="name">
+                    Nome Completo <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name"
+                        placeholder="O teu nome"
+                        required
+                        minlength="3"
+                    >
+                    <span class="input-icon"></span>
+                </div>
+                <span class="error-message"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">
+                    Email <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        placeholder="teu@email.com"
+                        required
+                    >
+                    <span class="input-icon"></span>
+                </div>
+                <span class="error-message"></span>
+            </div>
+
+            <!-- Assunto -->
+            <div class="form-group">
+                <label for="subject">
+                    Assunto <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <select id="subject" name="subject" required>
+                        <option value="">Seleciona um assunto</option>
+                        <option value="projeto">Proposta de Projeto</option>
+                        <option value="colaboracao">Colaboração</option>
+                        <option value="emprego">Oportunidade de Emprego</option>
+                        <option value="info">Pedido de Informação</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                    <span class="input-icon"></span>
+                </div>
+                <span class="error-message"></span>
+            </div>
+
+            <!-- Mensagem -->
+            <div class="form-group">
+                <label for="message">
+                    Mensagem <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <textarea 
+                        id="message" 
+                        name="message"
+                        placeholder="Escreve aqui a tua mensagem..."
+                        required
+                        minlength="10"
+                        rows="6"
+                    ></textarea>
+                    <span class="input-icon"></span>
+                </div>
+                <span class="error-message"></span>
+                <div class="char-counter">
+                    <span id="char-count">0</span> / 500 caracteres
+                </div>
+            </div>
+
+            <!-- Botão Submit -->
+            <button type="submit" class="submit-btn" id="submit-btn">
+                <span class="btn-text">Enviar Mensagem</span>
+                <span class="btn-icon">📨</span>
+            </button>
+
+        </form>
+
+        <!-- Info Adicional -->
+        <div class="contact-info">
+            <h3>Outras Formas de Contacto</h3>
+            <div class="info-item">
+                <span class="icon">📧</span>
+                <span>f660399@gmail.com</span>
+            </div>
+            <div class="info-item">
+                <span class="icon">📱</span>
+                <span>+351 967 401 546</span>
+            </div>
+            <div class="info-item">
+                <span class="icon">📍</span>
+                <span>Lisboa, Portugal</span>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" target="_blank">GitHub</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
     </section>
 
     <!-- FOOTER -->
