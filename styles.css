@@ -150,14 +150,14 @@ footer {
 body.dark-mode {
 
     --primary: #f70fff;
-    --secondary: #a408b3;
-    --accent: #5e125a;
+    --secondary: #8a0283;
+    --accent: #ab00c2;
 
-    --bg-primary: #1f2937;
-    --bg-secondary: #5051527a;
+    --bg-primary: #1f2022dc;
+    --bg-secondary: #312a2aaf;
     --text-primary: #000000;
     --text-secondary: #d1d5db;
-    --border: #374151;
+    --border: #3a3f47e0;
 }
 
 
@@ -228,7 +228,7 @@ body.dark-mode .icon-light {
     background: var(--bg-secondary);
     padding: 1.5rem 3rem;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(91, 196, 204, 0.856);
     letter-spacing: 0.1em;
 }
 
@@ -259,7 +259,7 @@ body.dark-mode .icon-light {
     border-radius: 15px;
     margin: 2rem 0;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(91, 196, 204, 0.856);
 }
 
 .visit-counter p {
