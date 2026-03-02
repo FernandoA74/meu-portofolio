@@ -53,8 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCharCounter();
     setupFormSubmit();
     setupAdminToggle();
-    loadMessages();
-});
+    loadMessages();}
+
+);
 
 // ===== RELÓGIO DIGITAL =====
 
@@ -248,10 +249,10 @@ const projects = [
         id: 1,
         title: 'Tasking Pet',
         category: 'web',
-        description: 'Site para adicionar tarefas e fazer o pet crescer.',
+        description: 'Site para tarefas interativo.',
         image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&h=300&fit=crop',
         tags: ['HTML', 'CSS', 'JavaScript'],
-        href: 'Pet.html',
+        link: 'Projetos/Pet/Pet.html',
         longDescription: 'Website de e-commerce completo com sistema de carrinho, checkout, e integração com API de pagamentos. Interface moderna e responsiva.',
         features: ['Carrinho de compras', 'Sistema de pagamento', 'Área de utilizador', 'Gestão de produtos'],
         technologies: ['HTML5', 'CSS3', 'JavaScript ES6+', 'LocalStorage', 'Fetch API'],
@@ -283,51 +284,12 @@ const projects = [
         technologies: ['Figma', 'Design System', 'Prototyping'],
         date: '2024-11'
     },
-    {
-        id: 4,
-        title: 'App Meteorologia',
-        category: 'mobile',
-        description: 'App mobile para consultar previsão do tempo',
-        image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=500&h=300&fit=crop',
-        tags: ['React Native', 'API', 'Mobile'],
-        link: 'https://github.com/...',
-        longDescription: 'Aplicação mobile para consultar previsão meteorológica com dados em tempo real.',
-        features: ['Previsão 7 dias', 'Localização automática', 'Alertas meteorológicos', 'Favoritos'],
-        technologies: ['React Native', 'Weather API', 'Geolocation'],
-        date: '2025-01'
-    },
-    {
-        id: 5,
-        title: 'Dashboard Analytics',
-        category: 'web',
-        description: 'Dashboard com gráficos e estatísticas',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop',
-        tags: ['Vue.js', 'Charts', 'API'],
-        link: 'https://github.com/...',
-        longDescription: 'Dashboard interativo para visualização de dados e analytics com gráficos dinâmicos.',
-        features: ['Gráficos interativos', 'Filtros de data', 'Exportar relatórios', 'Tempo real'],
-        technologies: ['HTML5', 'CSS3', 'JavaScript', 'Chart.js', 'API'],
-        date: '2024-10'
-    },
-    {
-        id: 6,
-        title: 'Redesign Logo Empresa',
-        category: 'design',
-        description: 'Redesign de identidade visual corporativa',
-        image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&h=300&fit=crop',
-        tags: ['Illustrator', 'Branding', 'Logo'],
-        link: 'https://behance.net/...',
-        longDescription: 'Projeto de redesign completo de identidade visual incluindo logo, cores e tipografia.',
-        features: ['Logo principal', 'Variações', 'Manual de marca', 'Mockups'],
-        technologies: ['Adobe Illustrator', 'Photoshop', 'InDesign'],
-        date: '2024-09'
-    }
 ];
 
 // Variável global para controlar filtro atual
 let currentCategory = 'all';
-// ===== RENDERIZAR PROJETOS =====
 
+// ===== RENDERIZAR PROJETOS =====
 function renderProjects(projectsToRender) {
     const grid = document.getElementById('projects-grid');
     const noResults = document.getElementById('no-results');
@@ -956,8 +918,9 @@ function setupFormSubmit() {
             submitBtn.classList.remove('loading');
         }
     });
-
-}// ===== GUARDAR MENSAGENS =====
+}
+    
+// ===== GUARDAR MENSAGENS =====
 function saveMessage(formData) {
     // Obter mensagens existentes
     const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];

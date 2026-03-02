@@ -1,0 +1,526 @@
+<!DOCTYPE html> 
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOKObol</title>
+  <style>
+    /* Estilos base do corpo da página */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://klebiusimages.wordpress.com/wp-content/uploads/2013/11/tacas-2.jpeg'); /* Imagem de fundo */
+      background-size: cover;  	  /* Cobre toda a área do ecrã */
+	  background-attachment:fixed;
+      background-position: center;  /* Centraliza a imagem */
+      height: 100vh;                /* Ocupa 100% da altura do ecrã */
+      color: white;                 /* Cor do texto para contraste */
+    }
+
+    /* Estilos do menu de navegação */
+    nav {
+      background-color: #2c3e50;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Logótipo dentro do menu */
+    nav .logo {
+      color: #ecf0f1;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /* Lista de navegação */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5em;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Links dentro do menu */
+    nav ul li a {
+      text-decoration: none;
+      color: #ecf0f1;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    /* Efeito ao passar o rato por cima dos links */
+    nav ul li a:hover {
+      color: #1abc9c;
+    }
+
+    /* Estilos responsivos para ecrãs pequenos */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background-color: #34495e;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        display: none; 
+      }
+
+      nav ul.active {
+        display: flex; 
+      }
+
+     .menu-toggle {
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #ecf0f1;
+		display: block;
+      }
+    }
+
+    /* Ícone do menu (☰) escondido por padrão em ecrãs grandes */
+    .menu-toggle {
+		display: none;
+    }
+	
+	.content {
+		padding: 30px;
+		background-color: rgba(2,2,2,0.4);
+		margin: 40px auto;
+		max-width: 800px;
+		border-radius: 10px;
+    }
+	
+	.content 2{
+		padding: 50px;
+		background-color: rgba(0,0,0,0.6);
+		margin: 60px auto;
+		max-width: 10000px;
+		border-radius: 0px;
+    }
+	
+	h1 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+		animation: slideInTop 1s ease;
+    }
+	
+	h3 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+        animation: slideInTop 1s ease;
+    }
+	
+	p {
+        background-color: rgba(0, 0, 0, 0.7);
+		padding: 15px;
+        border-radius: 10px;
+		line-height: 1.6;
+        margin-bottom: 20px;
+        box-shadow: 0 0 8px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    h2 {
+        color:#993399;
+        text-align: left;
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 5px black;
+    }
+ 
+    img {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(15,255,80,0.7);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+ 
+    /* Animação ao passar o rato por parágrafos e listas */
+    p:hover, ul:hover {
+        transform: scale(1.02);
+        text-shadow: 2px 2px 10px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    /* Animação ao passar o rato pelos títulos */
+    h1:hover, h2:hover {
+        transform: scale(1.03);
+        color: #993399;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+        transition: all 0.3s ease-in-out;	
+    }
+	
+	        .bio-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--warriors-yellow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .bio-container img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--warriors-yellow);
+        }
+ 
+        .bio-container p {
+            flex: 1 1 350px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 139, 0.9);
+            transition: background-color 0.3s ease;
+        }
+        .bio-container p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(0, 0, 139, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 0.9);
+        }
+		
+		.bio-container h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 1.0);
+		}
+		
+		    .bio-container-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-2 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--warriors-yellow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .bio-container-2 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--warriors-yellow);
+        }
+ 
+        .bio-container-2 p {
+            flex: 1 1 350px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(128, 128, 128, 0.9);
+            transition: background-color 0.3s ease;
+        }
+        .bio-container-2 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(128, 128, 128, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 0.9);
+        }
+		
+		.bio-container-2 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 1.0);
+		}
+		
+		.bio-container-3 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-3 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--warriors-yellow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .bio-container-3 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--warriors-yellow);
+        }
+ 
+        .bio-container-3 p {
+            flex: 1 1 350px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.9);
+            transition: background-color 0.3s ease;
+        }
+        .bio-container-3 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 0.9);
+        }
+		
+		.bio-container-3 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 1.0);
+		}
+		
+		.bio-container-4 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-4 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--warriors-yellow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .bio-container-4 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--warriors-yellow);
+        }
+ 
+        .bio-container-4 p {
+            flex: 1 1 350px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+            transition: background-color 0.3s ease;
+        }
+        .bio-container-4 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.9);
+        }
+		
+		.bio-container-4 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 1.0);
+		}
+		
+		.bio-container-5 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-5 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--warriors-yellow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .bio-container-5 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--warriors-yellow);
+        }
+ 
+        .bio-container-5 p {
+            flex: 1 1 350px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+            transition: background-color 0.3s ease;
+        }
+        .bio-container-5 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.9);
+        }
+		
+		.bio-container-5 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(255, 255, 255, 1.0);
+		}
+		
+		
+		
+		.bio-container-6 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-6 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--warriors-yellow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .bio-container-6 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--warriors-yellow);
+        }
+ 
+        .bio-container-6 p {
+            flex: 1 1 350px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.9);
+            transition: background-color 0.3s ease;
+        }
+        .bio-container-6 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 0.9);
+        }
+		
+		.bio-container-6 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 1.0);
+		}
+  </style>
+</head>
+<body>
+
+  <!-- Início da secção principal -->
+  <section>
+    <!-- Barra de navegação -->
+    <nav>
+      <div class="logo">⚽ LOKObol</div>
+      <!-- Botão do menu para dispositivos móveis -->
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <!-- Lista de opções do menu -->
+      <ul id="menu">
+        <li><a href="futebol 1.html">Inicio</a></li>
+        <li><a href="futebol 2.html">Historia</a></li>
+        <li><a href="futebol 3.html">Regras</a></li>
+        <li><a href="futebol 4.html">Principais ligas</a></li>
+      </ul>
+    </nav>
+
+    <!-- Caixa de boas-vindas -->
+    <div class="content 2">
+      <h1 align="center" style="color:white;">Titulos Mais importantes</h1>
+    </div>
+    </section>
+	
+	<div class ="content 2">
+    <p>No mundo inteiro existem varias taças, as nacionais, internacionais de clubes e as internacionais de seleções, as taças que são internacionais podem ser continentais ou mundiais, e podem ser de clubes ou seleções.</p>
+	</div>
+	
+	<div class="content 2">
+    <h1 style="color:yellow">UEFA Champions League</h1>	
+	<div class="bio-container">
+    <img
+                src="https://play-lh.googleusercontent.com/mniAAGrdWrN-yqW5F9noZcDw2HN4IXD_tjIUFwBEhWRIXtd4uW6dU_FRzQclA7daww0"
+                alt="Stephen Curry" loading="lazy"
+            />
+    <p>A Liga dos Campeões da UEFA, conhecida também por UEFA Champions League é uma competição anual de futebol em nível continental, organizada pela União das Associações Europeias de Futebol (UEFA) e disputada por clubes da Europa.</p>
+    <P>É uma das competições mais prestigiadas do mundo e a de clubes mais prestigiada no futebol europeu, disputada pelas equipes mais bem classificadas nas respectivas ligas nacionais na temporada anterior, sendo o número de vagas atribuído consoante o coeficiente da UEFA. A final da Liga dos Campeões da UEFA é o evento esportivo anual mais visto em todo o mundo. A final da edição de 2012–13 teve o maior número de audiências até o momento, atraindo 360 milhões de telespectadores.</P>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <h1 style="color:yellow">CONMEBOL Libertadores</h1>	
+	<div class="bio-container-2">
+    <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3KkSQ9aU9R7C1_fETY1ZjLbeVqtETFj8f-w&s"
+                alt="Stephen Curry" loading="lazy"
+            />
+    <p>A Copa Libertadores da América ou Taça Libertadores da América, oficialmente CONMEBOL Libertadores, é a principal competição de futebol entre clubes profissionais da América do Sul, organizada pela Confederação Sul-Americana de Futebol (CONMEBOL) desde 1960.</p>
+    <P>A competição teve vários formatos diferentes ao longo de sua história. No início, apenas os campeões nacionais participavam, tanto que nos seus primórdios a competição era chamada de Copa dos Campeões da América, e recebeu o nome atual somente em 1965. A partir da edição do ano posterior, os vice-campeões nacionais sul-americanos também passaram a se classificar para a competição.</P>
+    </div>
+	</div>
+
+    <div class="content 2">
+    <h1 style="color:yellow">FIFA Club World Cup</h1>	
+	<div class="bio-container-3">
+    <img
+                src="https://sportal365images.com/process/smp-images-production/abola.pt/14112024/c0df18b1-9d38-4710-98a8-46aadf1851df.png?operations=fit(595:)"
+                alt="Stephen Curry" loading="lazy"
+            />
+    <p>A Copa do Mundo de Clubes ou Campeonato do Mundo de Clubes, oficialmente FIFA Club World Cup, é uma competição anual de futebol organizada pela FIFA e disputada entre os clubes campeões das seis confederações continentais.
+	<br>CONMEBOL, CONCACAF, UEFA, CAF, AFC e OFC.</p>
+    <P>A FIFA, em seu site, descreveu o Troféu Sir Thomas Lipton como a primeira tentativa de organizar uma copa do mundo de clubes. A Copa Rio Internacional de 1951, competição organizada pela CBD com o auxílio de dirigentes da FIFA, foi referida como o primeiro torneio de dimensão mundial, intercontinental de clubes ou a "primeira competição mundial de clubes". Em 2014, de acordo com documento oficial da entidade, outorgou-se o status de campeão mundial ao vencedor desta competição, o brasileiro Palmeiras.</P>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <h1 style="color:yellow">UEFA Euro</h1>	
+	<div class="bio-container-4">
+    <img
+                src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/01093dcf-3500-4866-b84d-fb3c90fa9cfc/dhr1v84-a2e41b78-8f38-4f6c-b67d-96246fc3a92f.png/v1/fill/w_427,h_522/_1750_uefa_euro_2024_text_logo_3_1_by_mfdanhstudiosart_dhr1v84-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTIyIiwicGF0aCI6IlwvZlwvMDEwOTNkY2YtMzUwMC00ODY2LWI4NGQtZmIzYzkwZmE5Y2ZjXC9kaHIxdjg0LWEyZTQxYjc4LThmMzgtNGY2Yy1iNjdkLTk2MjQ2ZmMzYTkyZi5wbmciLCJ3aWR0aCI6Ijw9NDI3In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.x9oLasnfP7-0is2mG41i_NJcbPOluVT1w4dYFb7FS2A"
+                alt="Stephen Curry" loading="lazy"
+            />
+    <p>O Campeonato da Europa de Futebol da UEFA, também conhecido como Eurocopa ou ainda Euro, é o principal campeonato de futebol entre as seleções masculinas dos países europeus pertencentes à UEFA. É o segundo torneio de futebol mais assistido do mundo, ficando atrás somente da Copa do Mundo FIFA.</p>
+    <P>É realizado de quatro em quatro anos desde 1960, tendo sido originalmente chamado de Copa das Nações Europeias, mudando para seu nome atual em 1968. Desde 1996, os eventos individuais têm sido rotulados como "UEFA Euro [ano]".</P>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <h1 style="color:yellow">CONMEBOL Copa América</h1>	
+	<div class="bio-container-5">
+    <img
+                src="https://i.pinimg.com/736x/e5/80/b7/e580b745cecd0ee0ce9c87cbfc461d4c.jpg"
+                alt="Stephen Curry" loading="lazy"
+            />
+    <p>A Copa América, oficialmente CONMEBOL Copa América, conhecida até 1975 como Campeonato Sul-Americano de Futebol, é a principal competição entre as seleções de futebol das nações da CONMEBOL. Este torneio tornou-se o mais antigo do mundo, entre seleções, após os Jogos Olímpicos de Londres de 1948,</p>
+    <P>já que após esta edição as Olimpíadas começaram a ser disputadas por seleções que não são consideradas as principais, e também quando em 1984 o British Home Championship foi abolido. A competição determina o campeão continental da América do Sul. Desde a edição de 1993, equipes da América do Norte e da Ásia também foram convidadas a participar.</P>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <h1 style="color:yellow">FIFA World Cup</h1>	
+	<div class="bio-container-6">
+    <img
+                src="https://conteudo.imguol.com.br/c/esporte/ae/2022/02/12/trofeu-do-mundial-de-clubes-e-exibido-no-gramado-antes-de-chelsea-x-palmeiras-1644684029654_v2_450x600.jpg"
+                alt="Stephen Curry" loading="lazy"
+            />
+    <p>A Copa do Mundo da FIFA ou Campeonato Mundial de Futebol da FIFA, popularmente conhecida como Copa ou Mundial, é uma competição internacional de futebol entre seleções masculinas organizada pela Fédération Internationale de Football Association (FIFA).</p>
+    <P>Ocorre a cada quatro anos, com exceção de 1942 e 1946, quando não aconteceu devido à Segunda Guerra Mundial. Instituída em 1928, sob a liderança do então presidente da FIFA, Jules Rimet, está aberta a todas as federações reconhecidas pela FIFA. A primeira edição ocorreu em 1930 no Uruguai, escolhido como país-sede e cuja seleção saiu vencedora.</P>
+    </div>
+	</div>
+	
+  <!-- Script para alternar o menu nos dispositivos móveis -->
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>

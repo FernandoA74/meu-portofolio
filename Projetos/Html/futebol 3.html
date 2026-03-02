@@ -1,0 +1,370 @@
+<!DOCTYPE html> 
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOKObol</title>
+  <style>
+    /* Estilos base do corpo da página */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://s2.best-wallpaper.net/wallpaper/3840x2160/1708/Soccer-ball-grass_3840x2160.jpg'); /* Imagem de fundo */
+      background-size: cover;  	  /* Cobre toda a área do ecrã */
+	  background-attachment:fixed;
+      background-position: center;  /* Centraliza a imagem */
+      height: 100vh;                /* Ocupa 100% da altura do ecrã */
+      color: white;                 /* Cor do texto para contraste */
+    }
+
+    /* Estilos do menu de navegação */
+    nav {
+      background-color: #2c3e50;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Logótipo dentro do menu */
+    nav .logo {
+      color: #ecf0f1;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /* Lista de navegação */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5em;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Links dentro do menu */
+    nav ul li a {
+      text-decoration: none;
+      color: #ecf0f1;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    /* Efeito ao passar o rato por cima dos links */
+    nav ul li a:hover {
+      color: #1abc9c;
+    }
+
+    /* Estilos responsivos para ecrãs pequenos */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background-color: #34495e;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        display: none; 
+      }
+
+      nav ul.active {
+        display: flex; 
+      }
+
+     .menu-toggle {
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #ecf0f1;
+		display: block;
+      }
+    }
+
+    /* Ícone do menu (☰) escondido por padrão em ecrãs grandes */
+    .menu-toggle {
+		display: none;
+    }
+	
+	.content {
+		padding: 30px;
+		background-color: rgba(2,2,2,0.4);
+		margin: 40px auto;
+		max-width: 800px;
+		border-radius: 10px;
+    }
+	
+	.content 2{
+		padding: 50px;
+		background-color: rgba(0,0,0,0.6);
+		margin: 60px auto;
+		max-width: 600px;
+		border-radius: 0px;
+    }
+	
+	h1 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+		animation: slideInTop 1s ease;
+    }
+	
+	h3 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+        animation: slideInTop 1s ease;
+    }
+	
+	p {
+        background-color: rgba(0, 0, 0, 0.7);
+		padding: 15px;
+        border-radius: 10px;
+		line-height: 1.6;
+        margin-bottom: 20px;
+        box-shadow: 0 0 8px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    h2 {
+        color:#993399;
+        text-align: left;
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 5px black;
+    }
+ 
+    img {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(15,255,80,0.7);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+ 
+    /* Animação ao passar o rato por parágrafos e listas */
+    p:hover, ul:hover {
+        transform: scale(1.02);
+        text-shadow: 2px 2px 10px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    /* Animação ao passar o rato pelos títulos */
+    h1:hover, h2:hover {
+        transform: scale(1.03);
+        color: #993399;
+        text-shadow: 2px 2px 10px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;	
+    }
+ 
+  </style>
+  </head>
+<body>
+
+  <!-- Início da secção principal -->
+  <section>
+    <!-- Barra de navegação -->
+    <nav>
+      <div class="logo">⚽ LOKObol</div>
+      <!-- Botão do menu para dispositivos móveis -->
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <!-- Lista de opções do menu -->
+      <ul id="menu">
+        <li><a href="futebol 1.html">Inicio</a></li>
+        <li><a href="futebol 2.html">Historia</a></li>
+        <li><a href="futebol 4.html">Principais ligas</a></li>
+        <li><a href="futebol 5.html">Títulos mais importantes</a></li>
+      </ul>
+    </nav>
+	<div class="content">
+      <h1 align="center" style="color:white;">Regras do futebol</h1>
+    </div>
+	</section>
+    <div class ="content 2">
+      <p align="left" style="color:white;"><strong>Regra 1</strong>: O campo</p>
+	  <p align="left" style="color:white;">O campo deve ser retangular e marcado com linhas laterais (entre 90 e 120 metros de comprimentos) e linhas de fundo (entre 64 e 75 metros de largura). Há uma linha de meio de campo, que o divide em duas metades e há também um círculo cujo raio mede 9,15 m.
+      <br>Além disso, o campo deve ter prioritariamente da cor verde.</p>
+	  <p align="left" style="color:white;"><strong>O campo compreende também:</strong>
+	  <br>Área de meta (em média tem 16,5 m de comprimento por 38 m de largura;
+	  <br>Área de penalti (9,15 m de distância da baliza);
+	  <br>Área de canto;
+	  <br>postes de bandeira (1,5 m de altura, no mínimo);
+	  <br>postes (7,32 metros de largura e 2,44 metros de altura).</p>
+    </div>
+	  <img height = 90% src="futregras.jpg">
+	
+	<div class="content 2"> 
+	  <p align="left" style="color:white;"><strong>Regra 2</strong>: a bola</p>
+	  <p align="left" style="color:white;">A bola deve ter as seguintes características: 
+	  <br>ser esférica;
+	  <br>medir entre 68 cm e 70 cm de circunferência;
+      <br>pesar entre 410 g e 450 g no início do jogo;
+      <br>pressão equivalente a 0,6 - 1,1 atmosferas (600 - 1.100 g/cm²) ao nível do mar.</p>
+	</div>
+	  <img height = 60% src="bola.jpg">
+	  
+	<div class="content 2"> 
+	  <p align="left" style="color:white;"><strong>Regra 3</strong>: os jogadores</p>
+	  <p align="left" style="color:white;">As equipes são compostas por 11 jogadores, incluindo 1 guarda-redes, a quantidade de, defesas, médios e avnaçados, varia com forme o esquema tático que o treinador decidir usar. Entre os jogadores, um é o capitão, sendo responsável pela conduta da sua equipe. 
+	  <br>Ao longo do jogo, 5 jogadores podem ser substituídos. Atualmente, uma 6ª substituição pode ser feita em caso de um jogador sofrer uma concussão (um trauma na cabeça).</p>
+	</div>
+	  <img height = 70% src="posições.jpg">
+	
+	<div class="content 2">
+	  <p><strong>Regra 4</strong>: equipamento</p>
+	  <p><strong>O equipamento obrigatório é composto por:</strong>
+	  <br>camiseta com manga;
+      <br>calções (o guarda-redes pode usar calças);
+      <br>meias;
+      <br>caneleiras, colocadas por baixo das meias;
+      <br>chuteira.</p>
+	  <P>Além dos equipamentos obrigatórios, é permitido usar equipamentos de proteção, como protetores de cabeça, máscaras faciais, joelheiras, cotoveleiras e camisas térmicas. Esses equipamentos complementares devem ser prioritariamente da mesma cor que o equipamento.</P>
+	</div>
+	  <img height = 70% src="equipamento.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 5</strong>: o árbitro</p>
+	  <p>O árbitro de futebol é a maior autoridade em campo. É ele quem pode mostrar os cartões amarelos e vermelhos aos jogadores.
+	  <br><strong>Os principais poderes e deveres do árbitro são:</strong>
+	  <br>fazer que as regras do jogo sejam cumpridas;
+      <br>controlar o jogo com a ajuda dos outros membros da equipe de arbitragem;
+      <br>cronometrar e supervisionar o jogo.
+	  <p><strong>Os equipamentos obrigatórios usados pelo árbitro são:</strong>
+      <br>apito;
+      <br>cronômetro;
+	  <br>cartões amarelo e vermelho;
+	  <br>bloco de notas ou outro meio para registrar as ocorrências do jogo.</p>
+	  <P>Além dos equipamentos obrigatórios, os árbitros também podem usar: equipamento para se comunicar com outros membros da equipe de arbitragem e equipamento de monitoramento do condicionamento físico.</P>
+	</div>
+      <img height = 70% src="arbitro.jpg">
+	
+	<div class="content 2">
+	  <p><strong>Regra 6</strong>: os outros membros da equipe de arbitragem</p>
+	  <p><strong>O jogo de futebol para além do árbitro normal tem:</strong>
+	  <br>Dois árbitros assistentes;
+      <br>Um quarto árbitro;
+      <br>Dois árbitros assistentes adicionais;
+	  <br>Um árbitro assistente reserva;
+	  <br>Um árbitro assistente de vídeo (VAR) e, pelo menos, um assistente do VAR.</p>
+	  <p><strong>Árbitros assistentes</strong>
+	  <br>Os árbitros assistentes têm a tarefa de indicar quando a bola sai do campo, qual equipe tocou por último na bola, ou quando uma substituição é solicitada.
+	  <br>
+	  <br><strong>Quarto árbitro</strong>
+	  <br>O quarto árbitro é responsável por verificar o equipamento dos jogadores e por realizar oficialmente as substituições dos jogadores suplentes pelos titulares.
+	  <br>
+	  <br><strong>Árbitros assistentes adicionais</strong>
+	  <br>Os árbitros assistentes adicionais auxiliam o quarto árbitro e, caso seja necessário, podem substituir o quarto árbitro ou os árbitros.
+	  <br>
+	  <br><strong>Árbitro assistente reserva</strong>
+	  <br>O árbitro assistente reserva pode substituir um árbitro assistente, o quarto árbitro ou um árbitro assistente adicional.
+	  <br>
+	  <br><strong>Árbitro assistente de vídeo (VAR)</strong>
+	  <br>O árbitro assistente de vídeo auxilia o árbitro a tomar uma decisão relacionada a gols e cartões vermelhos.
+	  <br>
+	  <br><strong>O assistente do VAR</strong>
+	  <br>O assistente do VAR auxilia o árbitro assistente de vídeo assistindo às imagens de televisão, no momento em que o árbitro assistente de vídeo está ocupado com uma checagem, e registrando o tempo “perdido” numa checagem.</p>
+	</div>
+	  <img height = 70% src="arbitros.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 7</strong>: a duração do jogo</p>
+	  <p>Um jogo de futebol é disputado com duas partes	de 45 minutos. Entre as duas partes, há um intervalo de 15 minutos.
+	  <br>O tempo pode ser prolongado para compensar o tempo “perdido”, por exemplo, em decorrência de substituições, sanções disciplinares, retirada de um jogador lesionado e comemoração de golos.</p>
+	</div>
+	  <img height = 60% src="tempo.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 8</strong>: o início e o reinício de jogo</p>
+	  <p>O início do jogo dá se com o pontapé de saída, enquanto o reinício dá se após cada golo marcado, bem como nos pontapés livres, penaltis, lançamentos laterais, pontapés de baliza e cantos.
+	  <br>O jogo começa com um pontapé inicial na bola colocada no centro do campo, após o apito do árbitro. Quando um golo é marcado, a equipa que sofreu o golo reinicia o jogo com um pontapé de saída no centro do campo. Em ambas as situações, todos os jogadores de cada equipa devem estar na sua metade do campo.</p>
+	</div>
+	  <!--<img height = 70% src="pontapé.jpg">-->
+	  
+	<div class="content 2">
+	  <p><strong>Regra 9</strong>: a bola em jogo e fora de jogo</p>
+	  <p>A bola está fora de jogo quando, por exemplo, atravessa completamente as linhas laterais e de fundo do campo ou quando o jogo é paralisado pelo árbitro.
+	  <br>A bola está em jogo quando toca em um membro da arbitragem, nos postes, no travessão ou nas bandeira do canto e permanece dentro no campo.</p>
+	</div>
+	  <img height = 65% src="fora de jogo.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 10</strong>: a determinação do resultado de um jogo</p>
+	  <p>A equipe que tiver marcado mais golos vence o jogo. Se as duas equipes marcarem o mesmo número de golos, o jogo fica empatado, podendo ser desempatado através de um prolongamento (mais duas partes, quinze minutos cada parte, mais possível tempo de acréscimo) e se ainda assim continuar empatado vão a penaltis.
+	  <br>Nos penaltis, cada equipa deve bater 5 penaltis, alternando-se entre si. Se o empate se mantiver, os penaltis continuam até que uma das equipas marque um golo a mais do que a outra, depois de ter executado o mesmo número de penaltis.</p>
+	</div>
+	  <img height = 70% src="resultado.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 11</strong>: o fora de jogo</p>
+	  <p>O fora de jogo acontece quando qualquer parte de um jogador (com exceção dos braços e mãos) está mais perto da linha do golo adversário do que a bola e o penúltimo adversário no momento em que a bola é passada para ele.
+	  <br>O fora de jogo não é considerado uma infração. Além disso, o fora de jogo só acontece quando o jogador está no meio-campo ofensivo (meio-campo do adversário).</p>
+	</div>
+	  <img height = 60% src="offside.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 12</strong>: as faltas e condutas incorretas</p>
+	  <p><strong>No futebol, são consideradas infrações:</strong>
+	  <br>Segurar, empurrar e saltar em cima de um adversário;
+	  <br>Chutar e fazer tropeçar ou tentar chutar e tentar fazer tropeçar um adversário;
+	  <br>Morder ou cuspir em alguém;
+	  <br>Tocar na bola com a mão ou com o braço;
+	  <br>Fazer ofensas verbais e usar linguagem ofensiva, insultante ou abusiva.</p>
+	  <p>Os cartões amarelos são usados para fazer advertências, enquanto os cartões vermelhos são usados para fazer expulsões.
+	  <br>
+	  <br><strong>Um jogador pode receber cartão amarelo se:</strong>
+	  <br>Atrasar o início do jogo;
+	  <br>Desaprovar as decisões do árbitro através de palavras ou atitudes;
+	  <br>Entrar e sair do campo de jogo sem a autorização do árbitro;
+	  <br>Entrar na área de revisão do árbitro (ARA);
+	  <br>simular que sofreu uma falta.
+	  <br>
+	  <br><strong>Os gols podem ser comemorados, mas os jogadores poderão ser advertidos com cartão amarelo, por exemplo, se:</strong>
+	  <br>Agirem de forma provocativa ou debochada;
+	  <br>Cobrirem a cabeça ou o rosto com uma máscara, ou item similar;
+	  <br>Tirarem a camisola ou usá-la para cobrir a cabeça.
+	  <br>
+	  <br><strong>Um jogador pode receber cartão vermelho se:</strong>
+	  <br>Tocar na bola com a mão ou o braço para impedir que a equipa adversária faça golo;
+	  <br>Apresentar conduta violenta;
+	  <br>Receber dois cartões amarelos no mesmo jogo;
+	  <br>Entrar na sala de operação de vídeo (VOR).
+	</div>
+	  <img height = 70% src="cartoes.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 13</strong>: os pontapés livres</p>
+	  <p>Os pontapés livres são concedidos à equipa adversária que cometeu uma infração. Há dois tipos de pontapés livres: diretos, depois de uma infração grave, e indiretos, depois de uma infração menos grave.
+	  <br>Geralmente, os pontapés livres são executados no local onde ocorreu a infração. Antes de executado, os adversários devem ficar a, pelo menos, 9,15 metros de distância da bola. Quando os jogadores da equipa defensora formarem uma barreira, os jogadores da equipe atacante devem ficar a, pelo menos, 1 metro da barreira até que o pontapé livre seja batido.
+	</div>
+	  <img height = 60% src="livre.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 14</strong>: o penalti</p>
+	  <p>Um pênalti é dado quando um jogador cometer uma infração punível com um pontapé livre direto dentro da própria área penal.
+	  <br>Com exceção do batedor e do guarda-redes, os jogadores devem ficar a, pelo menos, 9,15 metros de distância da marca penal (fora da área). O penalti só pode ser cobrado após o apito do árbitro.</p>
+	</div>  
+	  <img height = 60% src="penalti.jpg">
+	
+	<div class="content 2">
+	  <p><strong>Regra 15</strong>: o lançamento lateral</p>
+	  <p>O lançamento lateral é concedido à equipa adversária da que tocou por último na bola antes de ela ter saído do campo pelas linhas laterais.
+	  <br>No momento de lançar a bola, o jogador deve estar de pé e de frente para o campo, no ponto em que a bola saiu de jogo. Além disso, a bola deve ser lançada com as duas mãos, sendo passada por trás da cabeça e por cima dela.
+	  <br>Os jogadores adversários devem manter uma distância de 2 metros do ponto de lançamento.</p>
+	</div>
+	  <img height = 50% src="lançamento.jpg">
+	  
+	<div class="content 2">
+	  <p><strong>Regra 16</strong>: o pontapé de baliza</p>
+	  <p>O pontapé de baliza é concedido quando a bola ultrapassar a linha de fundo, depois de ter tocado pela última vez em um jogador da equipe atacante.
+	  <br>No momento de chutar a bola, o jogador deve estar no interior da área de meta (pequena área). Os jogadores adversários devem ficar fora da área penal (grande área) até que a bola esteja em jogo.
+	</div>
+	  <img height = 60% src="pontape de baliza.jpg">
+	
+	<div class="content 2">
+	  <p><strong>Regra 17</strong>: o canto</p>
+	  <p>O canto é concedido quando a bola ultrapassar a linha de fundo, depois de ter tocado pela última vez em um jogador da equipa que estava a defender.
+	  <br>No momento de chutar a bola, ela deve estar na área de canto mais próxima do ponto em que ultrapassou a linha de fundo. Os jogadores adversários devem ficar a, pelo menos, 9,15 metros do quarto de círculo do canto até que a bola esteja em jogo.
+	</div>
+	  <img height = 60% src="canto.jpg">

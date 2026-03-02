@@ -1,0 +1,214 @@
+<!DOCTYPE html> 
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOKObol</title>
+  <style>
+    /* Estilos base do corpo da página */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://sdmntprpolandcentral.oaiusercontent.com/files/00000000-d6b0-620a-aac2-2e834fa77d29/raw?se=2025-05-30T09%3A11%3A21Z&sp=r&sv=2024-08-04&sr=b&scid=5d50355d-c6e2-575f-aa83-a72277cefb00&skoid=b928fb90-500a-412f-a661-1ece57a7c318&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-29T23%3A40%3A42Z&ske=2025-05-30T23%3A40%3A42Z&sks=b&skv=2024-08-04&sig=ztehyGXwYhFBCp3tKFDSt1jtQx/F9xpbdhYfDiKOLKQ%3D'); /* Imagem de fundo */
+      background-size: cover;  	  /* Cobre toda a área do ecrã */
+	  background-attachment:fixed;
+      background-position: center;  /* Centraliza a imagem */
+      height: 100vh;                /* Ocupa 100% da altura do ecrã */
+      color: white;                 /* Cor do texto para contraste */
+    }
+
+    /* Estilos do menu de navegação */
+    nav {
+      background-color: #2c3e50;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Logótipo dentro do menu */
+    nav .logo {
+      color: #ecf0f1;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /* Lista de navegação */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5em;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Links dentro do menu */
+    nav ul li a {
+      text-decoration: none;
+      color: #ecf0f1;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    /* Efeito ao passar o rato por cima dos links */
+    nav ul li a:hover {
+      color: #1abc9c;
+    }
+
+    /* Estilos responsivos para ecrãs pequenos */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background-color: #34495e;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        display: none; 
+      }
+
+      nav ul.active {
+        display: flex; 
+      }
+
+     .menu-toggle {
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #ecf0f1;
+		display: block;
+      }
+    }
+
+    /* Ícone do menu (☰) escondido por padrão em ecrãs grandes */
+    .menu-toggle {
+		display: none;
+    }
+	
+	.content {
+		padding: 30px;
+		background-color: rgba(2,2,2,0.4);
+		margin: 40px auto;
+		max-width: 800px;
+		border-radius: 10px;
+    }
+	
+	.content 2{
+		padding: 50px;
+		background-color: rgba(0,0,0,0.6);
+		margin: 60px auto;
+		max-width: 600px;
+		border-radius: 0px;
+    }
+	
+	h1 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+		animation: slideInTop 1s ease;
+    }
+	
+	h3 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+        animation: slideInTop 1s ease;
+    }
+	
+	p {
+        background-color: rgba(0, 0, 0, 0.7);
+		padding: 15px;
+        border-radius: 10px;
+		line-height: 1.6;
+        margin-bottom: 20px;
+        box-shadow: 0 0 8px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    h2 {
+        color:#993399;
+        text-align: left;
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 5px black;
+    }
+ 
+    img {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(15,255,80,0.7);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+ 
+    /* Animação ao passar o rato por parágrafos e listas */
+    p:hover, ul:hover {
+        transform: scale(1.02);
+        text-shadow: 2px 2px 10px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    /* Animação ao passar o rato pelos títulos */
+    h1:hover, h2:hover {
+        transform: scale(1.03);
+        color: #993399;
+        text-shadow: 2px 2px 10px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;	
+    }
+	
+	   .bio-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px var(--warriors-yellow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .bio-container img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px var(--warriors-yellow);
+        }
+ 
+        .bio-container p {
+            flex: 1 1 350px;
+            font-size: 1.15rem;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 199, 44, 0.5);
+            transition: background-color 0.3s ease;
+        }
+        .bio-container p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: var(--warriors-darkblue);
+            font-weight: 600;
+        }
+</style>
+<body>
+<div class="content 2"
+<div class="bio-container">
+<img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a6/P20230117CS-0446_%2852636052820%29_%28cropped%29.jpg"
+                alt="Stephen Curry" loading="lazy"
+            />
+<p>
+                Wardell Stephen Curry II nasceu a 14 de março de 1988, em Akron, Ohio, EUA.
+                Filho do ex-jogador da NBA Dell Curry, cresceu em Charlotte, Carolina do Norte.
+                Jogou basquetebol universitário pela Davidson College, onde bateu vários recordes
+                de pontuação e cestos de 3 pontos. Foi escolhido pelos Golden State Warriors
+                no Draft da NBA de 2009 e desde então tornou-se uma superestrela mundial.
+</p>
+</div>
+</div>
+</body>

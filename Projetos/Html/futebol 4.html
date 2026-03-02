@@ -1,0 +1,629 @@
+<!DOCTYPE html> 
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOKObol</title>
+  <style>
+    /* Estilos base do corpo da página */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('BNE.png'); /* Imagem de fundo */
+      background-size: cover;  	  /* Cobre toda a área do ecrã */
+	  background-attachment:fixed;
+      background-position: center;  /* Centraliza a imagem */
+      height: 100vh;                /* Ocupa 100% da altura do ecrã */
+      color: white;                 /* Cor do texto para contraste */
+    }
+
+    /* Estilos do menu de navegação */
+    nav {
+      background-color: #2c3e50;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Logótipo dentro do menu */
+    nav .logo {
+      color: #ecf0f1;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /* Lista de navegação */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5em;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Links dentro do menu */
+    nav ul li a {
+      text-decoration: none;
+      color: #ecf0f1;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    /* Efeito ao passar o rato por cima dos links */
+    nav ul li a:hover {
+      color: #1abc9c;
+    }
+
+    /* Estilos responsivos para ecrãs pequenos */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background-color: #34495e;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        display: none; 
+      }
+
+      nav ul.active {
+        display: flex; 
+      }
+
+     .menu-toggle {
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #ecf0f1;
+		display: block;
+      }
+    }
+
+    /* Ícone do menu (☰) escondido por padrão em ecrãs grandes */
+    .menu-toggle {
+		display: none;
+    }
+	
+	.content {
+		padding: 30px;
+		background-color: rgba(2,2,2,0.4);
+		margin: 40px auto;
+		max-width: 800px;
+		border-radius: 10px;
+    }
+	
+	.content 2{
+		padding: 50px;
+		background-color: rgba(0,0,0,0.6);
+		margin: 60px auto;
+		max-width: 600px;
+		border-radius: 0px;
+    }
+	
+	h1 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+		animation: slideInTop 1s ease;
+    }
+	
+	h3 {
+		color: #FFD700;
+		text-align: center;
+		margin-bottom: 30px;
+		text-shadow: 0 0 10px color=white;
+        animation: slideInTop 1s ease;
+    }
+	
+	p {
+        background-color: rgba(0, 0, 0, 0.7);
+		padding: 15px;
+        border-radius: 10px;
+		line-height: 1.6;
+        margin-bottom: 20px;
+        box-shadow: 0 0 8px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    h2 {
+        color:#993399;
+        text-align: left;
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 5px black;
+    }
+ 
+    img {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(15,255,80,0.7);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+ 
+    /* Animação ao passar o rato por parágrafos e listas */
+    p:hover, ul:hover {
+        transform: scale(1.02);
+        text-shadow: 2px 2px 10px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;
+    }
+ 
+    /* Animação ao passar o rato pelos títulos */
+    h1:hover, h2:hover {
+        transform: scale(1.03);
+        color: #993399;
+        text-shadow: 2px 2px 10px rgba(15,255,80,0.7);
+        transition: all 0.3s ease-in-out;	
+    }
+	
+	<!--liga inglesa--> 
+	        .bio-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(153, 50, 204, 0.9);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+		
+        .bio-container img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(153, 50, 204, 0.9);
+        }
+		
+        .bio-container p {
+            flex: 1 1 350px;
+            font-size: 15px;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(153, 50, 204, 0.9);
+            transition: background-color 0.3s ease;
+        }
+		
+        .bio-container p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(153, 50, 204, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(153, 50, 204, 0.9);
+        }
+		
+		.bio-container h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(153, 50, 204, 0.9);
+		}
+		
+		<!--liga espanhola--> 
+	        .bio-container-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-2 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(250, 127, 114, 0.9);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+		
+        .bio-container-2 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(250, 127, 114, 0.9);
+        }
+		
+        .bio-container-2 p {
+            flex: 1 1 350px;
+            font-size: 15px;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(250, 127, 114, 0.9);
+            transition: background-color 0.3s ease;
+        }
+		
+        .bio-container-2 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(250, 127, 114, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(250, 127, 114, 0.9);
+        }
+		
+		.bio-container-2 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(250, 127, 114, 0.9);
+		}
+		
+		<!--liga alemã--> 
+	        .bio-container-3 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-3 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(250, 0, 127, 0.9);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+		
+        .bio-container-3 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(250, 0, 127, 0.9);
+        }
+		
+        .bio-container-3 p {
+            flex: 1 1 350px;
+            font-size: 15px;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(250, 0, 127, 0.9);
+            transition: background-color 0.3s ease;
+        }
+		
+        .bio-container-3 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(250, 0, 127, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(250, 0, 127, 0.9);
+        }
+		
+		.bio-container-3 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(250, 0, 127, 0.9);
+		}
+		
+		<!--liga italiana--> 
+	        .bio-container-4 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-4 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(8, 77, 110, 0.9);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+		
+        .bio-container-4 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(8, 77, 110, 0.9);
+        }
+		
+        .bio-container-4 p {
+            flex: 1 1 350px;
+            font-size: 15px;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(8, 77, 110, 1.0);
+            transition: background-color 0.3s ease;
+        }
+		
+        .bio-container-4 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(8, 77, 110, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(8, 77, 110, 0.9);
+        }
+		
+		.bio-container-4 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(8, 77, 110, 1.0);
+		}
+		
+		<!--liga francesa--> 
+	        .bio-container-5 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-5 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(8, 77, 110, 0.9);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+		
+        .bio-container-5 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(0, 127, 255, 0.9);
+        }
+		
+        .bio-container-5 p {
+            flex: 1 1 350px;
+            font-size: 15px;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 127, 255, 1.0);
+            transition: background-color 0.3s ease;
+        }
+		
+        .bio-container-5 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(0, 127, 255, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(0, 127, 255, 0.9);
+        }
+		
+		.bio-container-5 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(0, 127, 255, 1.0);
+		}
+		
+		<!--liga portuguesa--> 
+	        .bio-container-6 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .bio-container-6 img {
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.9);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+		
+        .bio-container-6 img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(218, 165, 32, 0.9);
+        }
+		
+        .bio-container-6 p {
+            flex: 1 1 350px;
+            font-size: 15px;
+            line-height: 1.65;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(218, 165, 32, 1.0);
+            transition: background-color 0.3s ease;
+        }
+		
+        .bio-container-6 p:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.9);
+            font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 0.9);
+        }
+		
+		.bio-container-6 h1:hover {
+		    font-weight: 600;
+			text-shadow: 2px 2px 10px rgba(218, 165, 32, 1.0);
+		}
+  </style>
+</head>
+<body>
+
+  <!-- Início da secção principal -->
+  <section>
+    <!-- Barra de navegação -->
+    <nav>
+      <div class="logo">⚽ LOKObol</div>
+      <!-- Botão do menu para dispositivos móveis -->
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <!-- Lista de opções do menu -->
+      <ul id="menu">
+        <li><a href="futebol 1.html">Inicio</a></li>
+        <li><a href="futebol 2.html">Historia</a></li>
+        <li><a href="futebol 3.html">Regras</a></li>
+        <li><a href="futebol 5.html">Títulos mais importantes</a></li>
+      </ul>
+    </nav>
+
+    <!-- Caixa de boas-vindas -->
+    <div class="content 2">
+      <h1 style="color:white">Principais Ligas</h1>
+    </div>
+    </section>
+	
+    <div class ="content 2">
+      <p>No futebol existem inumeras ligas praticamente todos os paises têm uma liga, mas dentro delas todas existem 5 maiores conhecidas pelas <strong>"5 Principais Ligas"</strong>.</p>
+    </div>
+	<img height = 60% src="5ligas.jpg"> 
+	
+	<div class="content 2">
+    <div class="bio-container">
+	  <h1 align="center" style="color:white"> <strong>Premier League</strong></h1>
+	  <p>A Premier League é a principal liga da inglaterra e do Reino Unido.
+	  <br>
+	  <br>A liga é disputada por vinte clubes no sistema de pontos corridos, em que no final de cada temporada os quatro com mais pontos participam da Liga dos Campeões da UEFA, e os três com menos pontos são rebaixados para a EFL Championship (2 liga Inglesa), dando lugar aos três com mais pontos desta competição. Cada temporada decorre entre agosto e maio, tendo 38 rodadas com dez partidas cada, totalizando 380 partidas em toda a temporada. A maioria dos jogos são disputados durante o período da tarde nos sábados e domingos e algumas vezes durante a noite no meio da semana.
+	  <br>
+	  </p>
+	
+	<div class="content 2">
+    <img
+                src="https://cdn.mos.cms.futurecdn.net/YfcLFQhjH3dBhA2tGqs8Qf.jpg"
+                alt="Stephen Curry" loading="lazy"
+            />
+	  <p>
+        <strong>Os Maiores Campeões da Premier League são:</strong>
+		<br>1º Manchester United FC     20🥇
+		<br>2º Liverpool FC             20🥈
+		<br>3º Arsenal FC               13🥉
+	  </p>
+	</div>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-2">
+	  <h1 align="center" style="color:white"> <strong>La Liga</strong></h1>
+	  <p>A La Liga é a principal liga da Espanha.
+	  <br>
+	  <br>O Campeonato Nacional de Liga de Primera División, comasculino do sistema de ligas da Espanha. Administrado pela Liga Nacional de Fútbol Profesional, é disputada por vinte clubes sob o sistema de disputa de pontos corridos com jogos de ida e volta entre os vinte times,com o campeonato tendo 38 rodadas no total.
+	  <br>
+	  </p>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-2">
+    <img
+                src="https://logowik.com/content/uploads/images/laliga-2023-2024-new3252.logowik.com.webp"
+                alt="Stephen Curry" loading="lazy"
+            />
+	  <p>
+        <strong>Os Maiores Campeões da La Liga são:</strong>
+		<br>1º Real Madrid CF           36🥇
+		<br>2º FC Barcelona             28🥈
+		<br>3º C Atlético de Madrid     11🥉
+	  </p>
+	</div>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-3">
+	  <h1 align="center" style="color:white"> <strong>Bundesliga</strong></h1>
+	  <p>A Bundesliga é a principal liga da Alemanha.
+	  <br>
+	  <br>A Bundesliga, às vezes referida como Fußball-Bundesliga ou 1. Bundesliga, é uma liga profissional de futebol na Alemanha, organizada pela Deutsche Fußball Liga. No topo do sistema de ligas do futebol alemão, a Bundesliga é a principal competição de futebol do país.
+	  <br>
+	  </p>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-3">
+    <img
+                src="https://on-centro.pt/images/logos/futebol/internacional/Alemanha/federacao/Bundesliga_2023-2024.jpg"
+                alt="Stephen Curry" loading="lazy"
+            />
+	  <p>
+        <strong>Os Maiores Campeões da Bundesiga são:</strong>
+		<br>1º FC Bayern München        33🥇
+		<br>2º Borussia Dortmund         5🥈
+		<br>3º Borussia Mönchengladbach  5🥉
+	  </p>
+	</div>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-4">
+	  <h1 align="center" style="color:white"> <strong>Serie A</strong></h1>
+	  <p>A Serie A é a principal liga da Italia.
+	  <br>
+	  <br>A Serie A, também chamada de Serie A Enilive devido ao patrocínio da Enilive, é uma competição de clubes de futebol localizados no topo do sistema da Liga Italiana de Futebol.O vencedor é premiado com o Scudetto e a Coppa Campioni d'Italia.
+	  <br>
+	  </p>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-4">
+    <img
+                src="https://i0.wp.com/sportinsider.com.br/wp-content/uploads/2024/05/Italian-Serie-A-Logo-scaled.jpg?resize=1085%2C528&ssl=1"
+                alt="Stephen Curry" loading="lazy"
+            />
+	  <p>
+        <strong>Os Maiores Campeões da Serie A são:</strong>
+		<br>1º Juventus FC              36🥇
+		<br>2º FC Internazionale        20🥈
+		<br>3º AC Milan                 19🥉
+	  </p>
+	</div>
+    </div>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-5">
+	  <h1 align="center" style="color:white"> <strong>Ligue 1</strong></h1>
+	  <p>A Ligue 1 é a principal liga da França.
+	  <br>
+	  <br>A Ligue 1, oficialmente conhecida como Ligue 1 Uber EATS por razões de patrocínio, é a primeira divisão do sistema de ligas de futebol profissional entre clubes da França, sendo a principal competição futebolística no país. Administrada pela Ligue de Football Professionnel (LPF), órgão filiado à Fédération Française de Football (FFF), é disputada por 18 clubes e opera em um sistema de promoção e rebaixamento com a Ligue 2.
+	  <br>
+	  </p>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-5">
+    <img
+                src="https://s2.dmcdn.net/v/XaUSs1dQvCscSCXmD/x1080"
+                alt="Stephen Curry" loading="lazy"
+            />
+	  <p>
+        <strong>Os Maiores Campeões da Ligue 1 são:</strong>
+		<br>1º Paris SG              13🥇
+		<br>2º AS Saint-Étienne      10🥈
+		<br>3º Olympique de Marseille               9🥉
+	  </p>
+	</div>
+    </div>
+	</div>
+	
+	<div class ="content 2">
+      <p>Dentre estas ligas também existe a liga portuguesa que para muitos também mereceia estar no top.</p>
+    </div>
+	
+	<div class="content 2">
+    <div class="bio-container-6">
+	  <h1 align="center" style="color:white"> <strong>Primeira Liga</strong></h1>
+	  <p>A Primeira Liga é a principal liga de Portugal.
+	  <br>
+	  <br>A Primeira Liga, conhecida por Liga Portugal Betclic por razões de patrocínio é o principal escalão do sistema de ligas de futebol de Portugal. Criada na época 1934–35 pela Federação Portuguesa de Futebol (FPF), é organizada pela Liga Portuguesa de Futebol Profissional desde a temporada 1995–96. É disputada por dezoito clubes, num sistema de promoção e despromoção com a Segunda Liga.
+	  <br>
+	  </p>
+	</div>
+	
+	<div class="content 2">
+    <div class="bio-container-6">
+    <img
+                src="https://www.ligaportugal.pt/backoffice/assets/lo_c61bec4cca.png"
+                alt="Stephen Curry" loading="lazy"
+            />
+	  <p>
+        <strong>Os Maiores Campeões da Liga Portugal são:</strong>
+		<br>1º SL Benfica            38🥇
+		<br>2º FC Porto              30🥈
+		<br>3º Sporting CP           21🥉
+	  </p>
+	  <p>Merito também aos outros unicos 2 clubes que conseguiram ganhar esta competição, esses clubes são o Os Belenenses em 1945/46, e o Boavista FC em 2000/01.
+	</div>
+    </div>
+	</div>
+	
+  <!-- Script para alternar o menu nos dispositivos móveis -->
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
