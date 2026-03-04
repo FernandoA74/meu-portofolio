@@ -1407,3 +1407,79 @@ body.dark-mode .icon-light {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
 }
+
+/* Weather Widget */
+.weather-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.weather-icon {
+    font-size: 4em;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.weather-temp {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.weather-desc {
+    font-size: 1.1em;
+    opacity: 0.9;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+}
+
+.weather-location {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.weather-loading,
+.weather-error {
+    text-align: center;
+    padding: 20px;
+}
+
+.weather-loading p {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-value {
+    height: 40px;
+    width: 60px;
+    margin: 15px auto;
+    border-radius: 8px;
+}
+
+.skeleton-label {
+    height: 16px;
+    width: 100px;
+    margin: 0 auto;
+    border-radius: 4px;
+}

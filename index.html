@@ -16,6 +16,27 @@
                 <span class="icon-dark">🌙</span>
             </button>
             <h1>Fernando Albuquerque</h1>
+            <!-- Weather Widget (pode ir no header ou footer) -->
+        <div class="weather-widget" id="weather-widget">
+        <div class="weather-loading">
+            <p>⏳ A carregar meteorologia...</p>
+        </div>
+    
+        <div class="weather-content" style="display: none;">
+        <div class="weather-icon" id="weather-icon">☀️</div>
+        <div class="weather-info">
+           <div class="weather-temp">
+                <span id="temp">--</span>°C
+            </div>
+            <div class="weather-desc" id="weather-desc">--</div>
+            <div class="weather-location" id="weather-location">--</div>
+        </div>
+    </div>
+    
+    <div class="weather-error" style="display: none;">
+        <p>❌ Erro ao carregar meteorologia</p>
+    </div>
+    </div>
             <ul>
                 <li><a href="#about">Sobre Mim</a></li>
                 <li><a href="#projects">Projetos</a></li>
@@ -43,18 +64,6 @@
         </div>
         <button id="format-toggle" class="format-toggle">12h/24h</button>
         </div>
-        <!-- CONTADOR DE VISITAS -->
-        <div class="visit-counter">
-        <p>👋 Visitaste esta página <strong id="visit-count">0</strong> vezes</p>
-        <p class="last-visit">Última visita: <span id="last-visit">Primeira vez!</span></p>
-        <button id="reset-counter" class="reset-btn">🔄 Reset</button>
-        </div>
-    </section>
-    <!-- HTML para teste -->
-    <section class="api-test">
-        <h2>🧪 Teste de API</h2>
-        <button id="fetch-btn">Buscar Dados</button>
-        <div id="result" class="result"></div>
     </section>
 
     <!-- PROJETOS -->
@@ -317,10 +326,25 @@
         </a>
     </div>
     </section>
+
+    <!-- Skeleton para GitHub Stats -->
+<div class="skeleton-stat-card">
+    <div class="skeleton-icon"></div>
+    <div class="skeleton-value"></div>
+    <div class="skeleton-label"></div>
+</div>
+
+    <!-- CONTADOR DE VISITAS -->
+        <div class="visit-counter">
+        <p>👋 Visitaste esta página <strong id="visit-count">0</strong> vezes</p>
+        <p class="last-visit">Última visita: <span id="last-visit">Primeira vez!</span></p>
+        <button id="reset-counter" class="reset-btn">🔄 Reset</button>
+        </div>
     
     <!-- FOOTER -->
     <footer>
-        <p style="color: black; font-size: large; text-align: center;">© <span id="year"></span>Fernando. Feito com ❤️ e ☕</p>
+        <p style="color: black; font-size: large; text-align: center;">© <span id="year"></span> 
+            Fernando. Feito com ❤️ e ☕</p>
     </footer>
     <script src="script.js"></script>
 </body>

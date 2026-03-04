@@ -1177,6 +1177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Sessão 5: Integração com GitHub API ───────────────────
     initGitHubStats(); // Inicia a integração com a API do GitHub para mostrar stats
+    initWeatherWidget(); // Inicia o widget de clima 
 
     console.log('✅ Portfolio totalmente carregado!');
 });
@@ -1465,6 +1466,222 @@ async function fetchGitHubUserData() {
         return data;
     } catch (error) {
         console.error('❌ Erro ao buscar GitHub user:', error);
+        throw error;
+    }
+}
+const OPENWEATHER_API_KEY = '9a020b3300c37c0ba92320694aaf5d75070a268eb8ce73c9991aacd2f253cad7'; // ALTERAR!
+const DEFAULT_CITY = 'Lisbon'; // Cidade padrão se geolocalização falhar
+
+// Mapeamento de códigos para emojis
+const weatherIcons = {
+    '01d': '☀️',  // clear sky day
+    '01n': '🌙',  // clear sky night
+    '02d': '⛅',  // few clouds day
+    '02n': '☁️',  // few clouds night
+    '03d': '☁️',  // scattered clouds
+    '03n': '☁️',
+    '04d': '☁️',  // broken clouds
+    '04n': '☁️',
+    '09d': '🌧️',  // shower rain
+    '09n': '🌧️',
+    '10d': '🌦️',  // rain day
+    '10n': '🌧️',  // rain night
+    '11d': '⛈️',  // thunderstorm
+    '11n': '⛈️',
+    '13d': '❄️',  // snow
+    '13n': '❄️',
+    '50d': '🌫️',  // mist
+    '50n': '🌫️'
+};
+
+// Buscar meteorologia por cidade
+async function fetchWeatherByCity(city) {
+    try {
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt`
+        );
+        
+        if (!response.ok) {
+            throw new Error(`Weather API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('✅ Weather data:', data);
+        
+        return data;
+        
+    } catch (error) {
+        console.error('❌ Erro ao buscar meteorologia:', error);
+        throw error;
+    }
+}
+
+// Buscar meteorologia por coordenadas
+async function fetchWeatherByCoords(lat, lon) {
+    try {
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt`
+        );
+        
+        if (!response.ok) {
+            throw new Error(`Weather API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        return data;
+        
+    } catch (error) {
+        console.error('❌ Erro ao buscar meteorologia:', error);
+        throw error;
+    }
+}
+
+// Atualizar UI do widget
+function updateWeatherWidget(data) {
+    const widget = document.getElementById('weather-widget');
+    const loading = widget.querySelector('.weather-loading');
+    const content = widget.querySelector('.weather-content');
+    const error = widget.querySelector('.weather-error');
+    
+    // Esconder loading e error
+    loading.style.display = 'none';
+    error.style.display = 'none';
+    
+    // Atualizar dados
+    document.getElementById('temp').textContent = Math.round(data.main.temp);
+    document.getElementById('weather-desc').textContent = data.weather[0].description;
+    document.getElementById('weather-location').textContent = data.name;
+    
+    // Atualizar ícone
+    const iconCode = data.weather[0].icon;
+    const icon = weatherIcons[iconCode] || '🌈';
+    document.getElementById('weather-icon').textContent = icon;
+    
+    // Mostrar content
+    content.style.display = 'flex';
+}
+
+// Mostrar erro
+function showWeatherError() {
+    const widget = document.getElementById('weather-widget');
+    widget.querySelector('.weather-loading').style.display = 'none';
+    widget.querySelector('.weather-content').style.display = 'none';
+    widget.querySelector('.weather-error').style.display = 'block';
+}
+// ===== INICIALIZAR WEATHER WIDGET =====
+
+async function initWeatherWidget() {
+    console.log('🌤️ Carregando meteorologia...');
+    
+    try {
+        // Tentar obter localização do utilizador
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                // Sucesso
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    const data = await fetchWeatherByCoords(latitude, longitude);
+                    updateWeatherWidget(data);
+                },
+                // Erro ou negado
+                async (error) => {
+                    console.log('Geolocalização negada, usando cidade padrão');
+                    const data = await fetchWeatherByCity(DEFAULT_CITY);
+                    updateWeatherWidget(data);
+                }
+            );
+        } else {
+            // Browser não suporta geolocalização
+            const data = await fetchWeatherByCity(DEFAULT_CITY);
+            updateWeatherWidget(data);
+        }
+        
+    } catch (error) {
+        console.error('❌ Erro ao carregar meteorologia');
+        showWeatherError();
+    }
+}
+// ===== ERROR HANDLING AVANÇADO =====
+
+// Função para lidar com erros de API
+function handleAPIError(error, apiName) {
+    console.error(`❌ Erro na ${apiName} API:`, error);
+    
+    // Diferentes tipos de erro
+    if (error.message.includes('Failed to fetch')) {
+        showToast('error', 'Sem Conexão', `Verifica a tua ligação à internet`);
+    } else if (error.message.includes('404')) {
+        showToast('error', 'Não Encontrado', `${apiName}: Recurso não encontrado`);
+    } else if (error.message.includes('429')) {
+        showToast('error', 'Rate Limit', `${apiName}: Muitos pedidos. Tenta mais tarde.`);
+    } else if (error.message.includes('403')) {
+        showToast('error', 'Acesso Negado', `${apiName}: Verifica API key`);
+    } else {
+        showToast('error', 'Erro', `${apiName}: ${error.message}`);
+    }
+}
+
+// Atualizar fetchs para usar handleAPIError
+async function fetchGitHubUserData() {
+    const cacheKey = `github_user_${GITHUB_USERNAME}`;
+    const cached = getCachedData(cacheKey);
+    if (cached) return cached;
+    
+    try {
+        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setCachedData(cacheKey, data);
+        return data;
+        
+    } catch (error) {
+        handleAPIError(error, 'GitHub');
+        throw error;
+    }
+}
+// ===== RETRY LOGIC =====
+
+async function fetchWithRetry(url, options = {}, maxRetries = 3) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            const response = await fetch(url, options);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            return response;
+            
+        } catch (error) {
+            // Última tentativa - lançar erro
+            if (i === maxRetries - 1) {
+                throw error;
+            }
+            
+            // Esperar antes de retry (exponential backoff)
+            const delay = Math.pow(2, i) * 1000;
+            console.log(`Retry ${i + 1}/${maxRetries} após ${delay}ms...`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+    }
+}
+
+// Usar em fetchs
+async function fetchGitHubUserData() {
+    // ... cache code ...
+    
+    try {
+        const response = await fetchWithRetry(
+            `https://api.github.com/users/${GITHUB_USERNAME}`
+        );
+        const data = await response.json();
+        // ... resto
+    } catch (error) {
+        handleAPIError(error, 'GitHub');
         throw error;
     }
 }
