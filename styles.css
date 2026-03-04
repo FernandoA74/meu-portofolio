@@ -134,9 +134,9 @@ footer {
 :root {
 
     /* ===== cores principais ===== */
-    --primary: #12ebbc;
+    --primary: #12eb53;
     --secondary: #3379bb;
-    --accent: #f8f417;
+    --accent: #000000;
 
     /* ===== tema ===== */
     --bg-primary: #ffffff;
@@ -149,7 +149,7 @@ footer {
 /* ===== TEMA ESCURO ===== */
 body.dark-mode {
 
-    --primary: #f70fff;
+    --primary: #06a2e0;
     --secondary: #8a0283;
     --accent: #ab00c2;
 
@@ -1242,4 +1242,168 @@ body.dark-mode .icon-light {
     padding: 60px 20px;
     color: var(--gray);
     font-size: 1.2em;
+}
+/* GitHub Stats Section */
+.github-stats {
+    padding: 80px 20px;
+    background: var(--light);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.stat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+
+.stat-icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.stat-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.stat-value.loading {
+    color: var(--gray);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.stat-label {
+    color: var(--gray);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Repos Grid */
+.repos-section {
+    max-width: 1200px;
+    margin: 60px auto 40px;
+}
+
+.repos-section h3 {
+    color: var(--dark);
+    margin-bottom: 30px;
+}
+
+.repos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.repo-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    border-left: 4px solid var(--primary);
+}
+
+.repo-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.repo-header {
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.repo-icon {
+    font-size: 1.5em;
+}
+
+.repo-info h4 {
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.repo-info h4 a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.repo-info h4 a:hover {
+    color: var(--secondary);
+}
+
+.repo-description {
+    color: var(--gray);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.repo-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9em;
+    color: var(--gray);
+}
+
+.repo-stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.repo-language {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--light);
+    border-radius: 12px;
+    font-size: 0.85em;
+    color: var(--dark);
+    margin-top: 10px;
+}
+
+/* GitHub Link Button */
+.github-link {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-github {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 15px 40px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-github:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
 }

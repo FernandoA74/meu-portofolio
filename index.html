@@ -50,6 +50,12 @@
         <button id="reset-counter" class="reset-btn">🔄 Reset</button>
         </div>
     </section>
+    <!-- HTML para teste -->
+    <section class="api-test">
+        <h2>🧪 Teste de API</h2>
+        <button id="fetch-btn">Buscar Dados</button>
+        <div id="result" class="result"></div>
+    </section>
 
     <!-- PROJETOS -->
     <section id="projects" class="projects">
@@ -241,7 +247,7 @@
                 <strong id="total-messages">0</strong> mensagens
             </span>
             <button id="clear-messages" class="btn-danger">
-                🗑️ Limpar Todas
+                🗑️ 
             </button>
         </div>
     </div>
@@ -262,6 +268,56 @@
 </button>
     <!-- Container de Toasts -->
     <div id="toast-container" class="toast-container"></div>
+    
+    <section id="github-stats" class="github-stats">
+    <div class="section-header">
+        <h2>🐙 GitHub Stats</h2>
+        <p>Os meus projetos open-source</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <div class="stat-value" id="repos-count">--</div>
+            <div class="stat-label">Repositórios</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-value" id="stars-count">--</div>
+            <div class="stat-label">Stars Totais</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-value" id="followers-count">--</div>
+            <div class="stat-label">Followers</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">🔀</div>
+            <div class="stat-value" id="following-count">--</div>
+            <div class="stat-label">Following</div>
+        </div>
+    </div>
+
+    <!-- Repositórios Populares -->
+    <div class="repos-section">
+        <h3>📌 Repositórios Populares</h3>
+        <div id="repos-grid" class="repos-grid">
+            <!-- Repos serão inseridos aqui -->
+        </div>
+    </div>
+
+    <!-- Link para GitHub -->
+    <div class="github-link">
+        <a href="https://github.com/FernandoA74" target="_blank" class="btn-github">
+            Ver Todos no GitHub →
+        </a>
+    </div>
+    </section>
+    
     <!-- FOOTER -->
     <footer>
         <p style="color: black; font-size: large; text-align: center;">© <span id="year"></span>Fernando. Feito com ❤️ e ☕</p>
