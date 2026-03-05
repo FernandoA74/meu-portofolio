@@ -428,29 +428,29 @@ function setFooterYear() {
 const projects = [
     {
         id: 1,
-        title: 'E-commerce Website',
+        title: 'LOKObol',
         category: 'web',
-        description: 'Loja online completa com carrinho de compras',
-        image: 'https://via.placeholder.com/400x300/6366f1/ffffff?text=E-commerce',
-        tags: ['HTML', 'CSS', 'JavaScript', 'API'],
-        link: '#',
-        longDescription: 'Website de e-commerce completo com sistema de carrinho, checkout e integração com API de pagamentos. Interface moderna e responsiva.',
-        features: ['Carrinho de compras', 'Sistema de pagamento', 'Área de utilizador', 'Gestão de produtos'],
-        technologies: ['HTML5', 'CSS3', 'JavaScript ES6+', 'LocalStorage', 'Fetch API'],
-        date: '2025-01'
+        description: 'Site sobre futebol',
+        image: 'Projetos/Html/Fut.jpg',
+        tags: ['HTML5', 'CSS3', 'JavaScript'],
+        link: 'Projetos/Html/Futebol 1.html',
+        longDescription: 'Site dedicado ao mundo do futebol, com um pouco da Historia, as melhores competições, ligas e clubes!',
+        features: ['Historia do futebol', 'Competições', 'Ligas', 'Clubes'],
+        technologies: ['HTML5', 'CSS3', 'JavaScript ES6+'],
+        date: '2025'
     },
     {
         id: 2,
-        title: 'App de Tarefas',
+        title: 'Tasking Pet',
         category: 'web',
-        description: 'Gestor de tarefas com filtros e categorias',
-        image: 'https://via.placeholder.com/400x300/8b5cf6/ffffff?text=Todo+App',
-        tags: ['JavaScript', 'CSS', 'LocalStorage'],
-        link: '#',
-        longDescription: 'Aplicação de gestão de tarefas com sistema de prioridades, categorias e persistência local.',
+        description: 'Aplicação de gestão de tarefas',
+        image: 'Projetos/Pet/Petimage.jpg',
+        tags: ['HTML5', 'CSS3', 'JavaScript', 'LocalStorage'],
+        link: 'Projetos/Pet/Pet.html',
+        longDescription: 'Aplicação para gestão de tarefas e criar um pet virtual.',
         features: ['Adicionar/editar/remover tarefas', 'Filtros por estado', 'Categorias', 'Persistência de dados'],
         technologies: ['HTML5', 'CSS3', 'JavaScript', 'LocalStorage'],
-        date: '2024-12'
+        date: '2026'
     },
 ];
 
@@ -1277,26 +1277,22 @@ document.getElementById('fetch-btn')?.addEventListener('click', buscarEMostrar);
 // ===== GITHUB API INTEGRATION =====
 
 const GITHUB_USERNAME = 'FernandoA74';
+// Opcional: personal access token do GitHub para aumentar o limite de requisições.
+// **Não** recomendo deixar isto num repositório público; utilize apenas em ambiente privado
+// ou deixe a string vazia para usar a API sem autenticação (limite de 60 req/h).
+//const GITHUB_TOKEN = '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';
 
-// Buscar dados do utilizador
-async function fetchGitHubUserData() {
-    try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-        
-        if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        console.log('✅ GitHub user data:', data);
-        return data;
-        
-    } catch (error) {
-        console.error('❌ Erro ao buscar GitHub user:', error);
-        throw error;
+// Cabeçalhos padrão que podemos reutilizar em todos os pedidos ao GitHub
+function getGitHubHeaders() {
+    const headers = { 'Accept': 'application/vnd.github.v3+json' };
+    if (GITHUB_TOKEN) {
+        headers['Authorization'] = `token ${GITHUB_TOKEN}`;
     }
+    return headers;
 }
+
+// Código anterior de fetchGitHubUserData removido - substituído pela versão única mais abaixo
+// (mantida para evitar conflitos de múltiplas definições).
 
 // Atualizar stats no DOM
 function updateGitHubStats(userData) {
@@ -1312,21 +1308,20 @@ function updateGitHubStats(userData) {
 // Buscar repositórios do utilizador
 async function fetchGitHubRepos() {
     try {
-        const response = await fetch(
-            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=stars&per_page=6`
+        const response = await fetchWithRetry(
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=stars&per_page=6`,
+            { headers: getGitHubHeaders() }
         );
-        
+
         if (!response.ok) {
             throw new Error(`GitHub API error: ${response.status}`);
         }
-        
+
         const repos = await response.json();
-        
         console.log('✅ GitHub repos:', repos);
         return repos;
-        
     } catch (error) {
-        console.error('❌ Erro ao buscar repos:', error);
+        handleAPIError(error, 'GitHub');
         throw error;
     }
 }
@@ -1346,42 +1341,31 @@ async function calculateTotalStars() {
     }
 }
 
-// Renderizar repositórios
+// Renderizar repositórios (marcações estilo "message-card")
 function renderRepos(repos) {
     const grid = document.getElementById('repos-grid');
-    
+    if (!grid) return;
+
     grid.innerHTML = repos.map(repo => `
-        
+        <div class="repo-card" data-id="${repo.id}">
+            <div class="repo-header">
+                <h4 class="repo-name">${repo.name}</h4>
+                ${repo.language ? `<span class="repo-language">${repo.language}</span>` : ''}
+            </div>
 
-            
+            <p class="repo-description">${repo.description || 'Sem descrição'}</p>
 
-                
-📦
+            <div class="repo-stats">
+                <span class="repo-stars">⭐ ${repo.stargazers_count}</span>
+                <span class="repo-forks">🔀 ${repo.forks_count}</span>
+            </div>
 
-                
-
-                    
-${repo.name}
-
-                
-
-            
-
-            
-
-                ${repo.description || 'Sem descrição'}
-            
-
-
-            
-
-                ⭐ ${repo.stargazers_count}
-                🔀 ${repo.forks_count}
-            
-
-            ${repo.language ? `${repo.language}` : ''}
-        
-
+            <div class="repo-actions">
+                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="repo-link">
+                    Ver no GitHub 🔗
+                </a>
+            </div>
+        </div>
     `).join('');
 }
 
@@ -1442,35 +1426,10 @@ function setCachedData(key, data) {
     localStorage.setItem(key, JSON.stringify(cacheObj));
 }
 
-// Atualizar fetchGitHubUserData para usar cache
-async function fetchGitHubUserData() {
-    const cacheKey = `github_user_${GITHUB_USERNAME}`;
-    
-    // Tentar obter do cache primeiro
-    const cached = getCachedData(cacheKey);
-    if (cached) return cached;
-    
-    // Se não tem cache, buscar da API
-    try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-        
-        if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Guardar no cache
-        setCachedData(cacheKey, data);
-        
-        return data;
-    } catch (error) {
-        console.error('❌ Erro ao buscar GitHub user:', error);
-        throw error;
-    }
-}
-const OPENWEATHER_API_KEY = '9a020b3300c37c0ba92320694aaf5d75070a268eb8ce73c9991aacd2f253cad7'; // ALTERAR!
+// (anterior bloco de cache removido - a versão unificada com retry está mais abaixo)
+//const OPENWEATHER_API_KEY = 'fa6ade1d950e8cb815ac73f1c0bbcbd2'; 
 const DEFAULT_CITY = 'Lisbon'; // Cidade padrão se geolocalização falhar
+
 
 // Mapeamento de códigos para emojis
 const weatherIcons = {
@@ -1615,34 +1574,20 @@ function handleAPIError(error, apiName) {
     } else if (error.message.includes('429')) {
         showToast('error', 'Rate Limit', `${apiName}: Muitos pedidos. Tenta mais tarde.`);
     } else if (error.message.includes('403')) {
-        showToast('error', 'Acesso Negado', `${apiName}: Verifica API key`);
+        // GitHub devolve 403 sempre que o limite é atingido ou o token é inválido.
+        if (apiName === 'GitHub') {
+            showToast('error', 'Limite API GitHub',
+                `${apiName}: limite atingido ou token inválido. ` +
+                `Adiciona um token pessoal ou espera 1h.`);
+        } else {
+            showToast('error', 'Acesso Negado', `${apiName}: Verifica API key`);
+        }
     } else {
         showToast('error', 'Erro', `${apiName}: ${error.message}`);
     }
 }
 
-// Atualizar fetchs para usar handleAPIError
-async function fetchGitHubUserData() {
-    const cacheKey = `github_user_${GITHUB_USERNAME}`;
-    const cached = getCachedData(cacheKey);
-    if (cached) return cached;
-    
-    try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        
-        const data = await response.json();
-        setCachedData(cacheKey, data);
-        return data;
-        
-    } catch (error) {
-        handleAPIError(error, 'GitHub');
-        throw error;
-    }
-}
+// (v1 de fetchGitHubUserData removida aqui - utiliza-se a implementação com retry abaixo)
 // ===== RETRY LOGIC =====
 
 async function fetchWithRetry(url, options = {}, maxRetries = 3) {
@@ -1672,14 +1617,18 @@ async function fetchWithRetry(url, options = {}, maxRetries = 3) {
 
 // Usar em fetchs
 async function fetchGitHubUserData() {
-    // ... cache code ...
-    
+    const cacheKey = `github_user_${GITHUB_USERNAME}`;
+    const cached = getCachedData(cacheKey);
+    if (cached) return cached;
+
     try {
         const response = await fetchWithRetry(
-            `https://api.github.com/users/${GITHUB_USERNAME}`
+            `https://api.github.com/users/${GITHUB_USERNAME}`,
+            { headers: getGitHubHeaders() }
         );
         const data = await response.json();
-        // ... resto
+        setCachedData(cacheKey, data);
+        return data;
     } catch (error) {
         handleAPIError(error, 'GitHub');
         throw error;
